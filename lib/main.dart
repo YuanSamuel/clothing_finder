@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:blockstack/blockstack.dart';
 
 void main() {
   runApp(MyApp());
