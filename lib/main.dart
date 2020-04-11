@@ -1,88 +1,71 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'registerPage.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: LoginPage(),
-  ));
+  runApp(MyApp());
 }
 
-class LoginPage extends StatefulWidget {
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
-  _pageState createState() => _pageState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHomePage(),
+    );
+  }
 }
 
-class _pageState extends State<LoginPage> {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
-  String name;
-  String password;
+class _MyHomePageState extends State<MyHomePage> {
+  File _image;
 
-  TextEditingController nameController;
-  TextEditingController passwordController;
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
-  void initState() {
-    super.initState();
-    nameController = new TextEditingController();
-    passwordController = new TextEditingController();
+    setState(() {
+      _image = image;
+    });
+  }
+
+  Future getImageFile() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: ListView(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                  child: Column(children: <Widget>[
-
-                    TextField(
-                        controller: nameController,
-                        decoration: InputDecoration(
-                            labelStyle: TextStyle(fontSize: 24),
-                            border: InputBorder.none,
-                            hintText: 'username',
-                            labelText: "Enter your username"),
-                        onChanged: (text) {
-                          print("Second text field: $text");
-
-                          setState(() {
-                            name = text;
-                          });
-                        }),
-                    //Name
-
-                    //password
-                    TextField(
-                        controller: passwordController,
-                        decoration: InputDecoration(
-                            labelStyle: TextStyle(fontSize: 24),
-                            border: InputBorder.none,
-                            hintText: 'password',
-                            labelText: "Enter your password"),
-                        onChanged: (text) {
-                          print("Second text field: $text");
-
-                          setState(() {
-                            password = text;
-                          });
-                        }),
-                    FlatButton(
-                      child: Text('register'),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Register()));
-                      },
-
-                    )
-              ]))
-            ],
-          )
-        ],
+      appBar: AppBar(
+        title: Text('Image Picker Example'),
       ),
+      body: Center(
+        child: _image == null
+            ? Text('No image selected.')
+            : Image.file(_image),
+      ),
+        floatingActionButton: Column(
+          children: <Widget>[
+            FloatingActionButton(
+              onPressed: getImage,
+              tooltip: 'Pick Image',
+              child: Icon(Icons.add_a_photo),
+            ),
+            FloatingActionButton(
+              onPressed: getImageFile,
+              tooltip: 'Pick Image',
+              child: Icon(Icons.add_photo_alternate),
+            ),
+          ],
+        )
     );
   }
 }
