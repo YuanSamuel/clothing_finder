@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  line_awesome_icons:
   firebase_storage:
   image_picker:
   validators:
