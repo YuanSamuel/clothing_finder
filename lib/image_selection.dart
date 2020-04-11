@@ -4,12 +4,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'models/entry.dart';
 
-class MyHomePage extends StatefulWidget {
+class ImageSelectionPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _ImageSelectionPageState createState() => _ImageSelectionPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _ImageSelectionPageState extends State<ImageSelectionPage> {
   File _image;
 
   Future getImage() async {
@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: _image == null ? Text('No image selected.') : Image.file(_image),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "imageButton",
         onPressed: getImage,
         tooltip: 'Pick Image',
         child: Icon(Icons.add_a_photo),
