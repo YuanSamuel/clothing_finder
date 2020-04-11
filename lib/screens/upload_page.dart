@@ -1,4 +1,3 @@
-import 'package:clothingfinder/Home_Page.dart';
 import 'package:clothingfinder/registerPage.dart';
 import 'package:flutter/material.dart';
 
