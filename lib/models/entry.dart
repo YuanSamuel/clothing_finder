@@ -27,12 +27,12 @@ class entry {
     votes: json['votes'] as int,
   );
 
-  Map<String, dynamic> _entryToJson(entry instance) => <String, dynamic>{
-    'name': instance.name,
-    'description': instance.description,
-    'url': instance.url,
-    'userId': instance.userId,
-    'rating': instance.rating,
-    'votes': instance.votes,
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'name': this.name,
+    'description': this.description,
+    'url': this.url,
+    'userId': this.userId,
+    'rating': this.rating,
+    'votes': this.votes,
   };
 }

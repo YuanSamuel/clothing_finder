@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'image_selection.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: LoginPage(),
+    home: MyHomePage(),
   ));
 }
