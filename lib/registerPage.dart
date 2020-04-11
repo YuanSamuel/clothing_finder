@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
-import 'registerPage.dart';
+import 'main.dart';
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: LoginPage(),
-  ));
-}
 
-class LoginPage extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
-  _pageState createState() => _pageState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _pageState extends State<LoginPage> {
-
-  String name;
-  String password;
+class _RegisterState extends State<Register> {
+  String newName;
+  String newPassword;
 
   TextEditingController nameController;
   TextEditingController passwordController;
@@ -44,12 +37,12 @@ class _pageState extends State<LoginPage> {
                             labelStyle: TextStyle(fontSize: 24),
                             border: InputBorder.none,
                             hintText: 'username',
-                            labelText: "Enter your username"),
+                            labelText: "Enter your new username"),
                         onChanged: (text) {
                           print("Second text field: $text");
 
                           setState(() {
-                            name = text;
+                            newName = text;
                           });
                         }),
                     //Name
@@ -61,24 +54,22 @@ class _pageState extends State<LoginPage> {
                             labelStyle: TextStyle(fontSize: 24),
                             border: InputBorder.none,
                             hintText: 'password',
-                            labelText: "Enter your password"),
+                            labelText: "Enter your new password"),
                         onChanged: (text) {
                           print("Second text field: $text");
 
                           setState(() {
-                            password = text;
+                            newPassword = text;
                           });
                         }),
                     FlatButton(
-                      child: Text('register'),
+                      child: Text('login'),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Register()));
+                        Navigator.pop(context);
                       },
 
                     )
-              ]))
+                  ]))
             ],
           )
         ],
