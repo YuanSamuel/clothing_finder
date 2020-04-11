@@ -71,18 +71,19 @@ Widget build(BuildContext context) {
 
 
                 ),
-          floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {                    // Add your onPressed code here!
-    Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => GalleryPage()
-},
-  label: Text('Save'),
-  icon: Icon(Icons.file_upload),
-  backgroundColor: Colors.blue,
-  ),
 
-      )
+
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+      onPressed: () {                    // Add your onPressed code here!
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GalleryPage()));
+        },
+        label: Text('Save'),
+        icon: Icon(Icons.file_upload),
+        backgroundColor: Colors.blue,
+      ),
 
 
         );
