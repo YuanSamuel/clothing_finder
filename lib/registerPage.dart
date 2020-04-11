@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-import 'registerPage.dart';
+import 'main.dart';
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: LoginPage(),
-  ));
-}
 
-class LoginPage extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
-  _pageState createState() => _pageState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _pageState extends State<LoginPage> {
-
+class _RegisterState extends State<Register> {
   String name;
   String password;
 
@@ -44,7 +37,7 @@ class _pageState extends State<LoginPage> {
                             labelStyle: TextStyle(fontSize: 24),
                             border: InputBorder.none,
                             hintText: 'username',
-                            labelText: "Enter your username"),
+                            labelText: "Enter your new username"),
                         onChanged: (text) {
                           print("Second text field: $text");
 
@@ -61,7 +54,7 @@ class _pageState extends State<LoginPage> {
                             labelStyle: TextStyle(fontSize: 24),
                             border: InputBorder.none,
                             hintText: 'password',
-                            labelText: "Enter your password"),
+                            labelText: "Enter your new password"),
                         onChanged: (text) {
                           print("Second text field: $text");
 
@@ -70,15 +63,13 @@ class _pageState extends State<LoginPage> {
                           });
                         }),
                     FlatButton(
-                      child: Text('register'),
+                      child: Text('login'),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Register()));
+                        Navigator.pop(context);
                       },
 
                     )
-              ]))
+                  ]))
             ],
           )
         ],
