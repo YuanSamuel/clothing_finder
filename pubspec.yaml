@@ -29,9 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   firebase_storage: ^3.1.5
-  blockstack:
-    git:
-      url: https://github.com/friedger/flutterblockstackplugin.git
+  cloud_firestore: ^0.13.4+2
 
 dev_dependencies:
   flutter_test:
