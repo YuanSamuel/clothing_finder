@@ -1,71 +1,133 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'registerPage.dart';
+import 'data.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: LoginPage(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class LoginPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
-    );
-  }
+  _pageState createState() => _pageState();
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+class _pageState extends State<LoginPage> {
+  String name;
+  String password;
 
-class _MyHomePageState extends State<MyHomePage> {
-  File _image;
+  TextEditingController nameController;
+  TextEditingController passwordController;
 
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+  DatabaseService data = new DatabaseService('e');
 
-    setState(() {
-      _image = image;
-    });
+  void initState() {
+    super.initState();
+    nameController = new TextEditingController();
+    passwordController = new TextEditingController();
   }
 
-  Future getImageFile() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      _image = image;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Image Picker Example'),
-      ),
-      body: Center(
-        child: _image == null
-            ? Text('No image selected.')
-            : Image.file(_image),
-      ),
-        floatingActionButton: Column(
+      backgroundColor: Colors.green,
+      body: ListView(children: <Widget>[
+        Column(
           children: <Widget>[
-            FloatingActionButton(
-              onPressed: getImage,
-              tooltip: 'Pick Image',
-              child: Icon(Icons.add_a_photo),
-            ),
-            FloatingActionButton(
-              onPressed: getImageFile,
-              tooltip: 'Pick Image',
-              child: Icon(Icons.add_photo_alternate),
-            ),
+            SizedBox(height: 100),
+            Text("EcoCycle"),
+            SizedBox(height: 260),
+            Container(
+                margin:
+                const EdgeInsets.only(left: 30.0, top: 60.0, right: 30.0),
+                height: 170.0,
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                    new BorderRadius.all(new Radius.circular(25.7))),
+                child: new Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 10),
+                        Text('Login'),
+                        new TextField(
+                          controller: nameController,
+                          autofocus: false,
+                          style: new TextStyle(
+                              fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                          decoration: new InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: 'Username',
+                            contentPadding: const EdgeInsets.only(
+                                left: 14.0, bottom: 8.0, top: 8.0),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(25.7),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(25.7),
+                            ),
+                          ),
+                          onChanged: (text) {
+                            name = text;
+                          },
+                        ),
+                        new TextField(
+                          controller: passwordController,
+                          autofocus: false,
+                          style: new TextStyle(
+                              fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                          decoration: new InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: 'Password',
+                            contentPadding: const EdgeInsets.only(
+                                left: 14.0, bottom: 8.0, top: 8.0),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(25.7),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(25.7),
+                            ),
+                          ),
+                          onChanged: (text) {
+                            password = text;
+                          },
+                        ),
+                        FlatButton(
+                          child: Text(
+                              'Submit'
+                          ),
+                          onPressed: () {
+                            print(nameController.text);
+                            data.handleSignInEmail(nameController.text, passwordController.text);
+                            print("submitted");
+                          },
+                        ),
+                      ],
+                    ))),
+            RaisedButton(
+              child: Text(
+                  "Brand new? Let's register!"
+              ),
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Register()));
+              },
+            )
           ],
         )
+      ]),
     );
   }
 }
