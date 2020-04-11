@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 class Register extends StatefulWidget {
@@ -18,6 +20,13 @@ class _RegisterState extends State<Register> {
     super.initState();
     nameController = new TextEditingController();
     passwordController = new TextEditingController();
+  }
+
+  void submitInfo(){
+    setState(() {
+      FirebaseAuth.instance.createUserWithEmailAndPassword(email: nameController.text, password: passwordController.text);
+      FirebaseAuth.instance.signInWithEmailAndPassword(email: nameController.text, password: passwordController.text);
+    });
   }
 
   @override
@@ -45,7 +54,7 @@ class _RegisterState extends State<Register> {
                         SizedBox(height: 10),
                         Text('Register'),
                         new TextField(
-                          controller: null,
+                          controller: nameController,
                           autofocus: false,
                           style: new TextStyle(
                               fontSize: 22.0, color: Color(0xFFbdc6cf)),
@@ -70,7 +79,7 @@ class _RegisterState extends State<Register> {
                         ),
 
                         new TextField(
-                          controller: null,
+                          controller: passwordController,
                           autofocus: false,
                           style: new TextStyle(
                               fontSize: 22.0, color: Color(0xFFbdc6cf)),
@@ -97,7 +106,10 @@ class _RegisterState extends State<Register> {
                           child: Text(
                               'Submit'
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            submitInfo();
+                            print("submitted");
+                          },
                         ),
                       ],
                     ))),
