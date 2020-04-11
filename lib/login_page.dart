@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'registerPage.dart';
+import 'package:clothingfinder/Home_Page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -123,7 +124,7 @@ class _pageState extends State<LoginPage> {
                               FirebaseAuth.instance.signInWithEmailAndPassword(email: nameController.text, password: passwordController.text).then((value) => {
                                 Firestore.instance.collection('users').document(value.user.uid).get().then((value) => Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => ImageSelectionPage()),
+                                  MaterialPageRoute(builder: (context) => HomePage()),
                                 ))
                               });
                             },

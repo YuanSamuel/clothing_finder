@@ -4,6 +4,7 @@ import 'main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'image_selection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:clothingfinder/Home_Page.dart';
 
 
 class Register extends StatefulWidget {
@@ -34,7 +35,7 @@ class _RegisterState extends State<Register> {
         });
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ImageSelectionPage()),
+          MaterialPageRoute(builder: (context) => HomePage()),
         );
         nameController.clear();
         passwordController.clear();
