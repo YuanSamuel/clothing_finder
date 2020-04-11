@@ -39,7 +39,7 @@ class _pageState extends State<LoginPage> {
                   child: Column(children: <Widget>[
 
                     TextField(
-                        controller: passwordController,
+                        controller: nameController,
                         decoration: InputDecoration(
                             labelStyle: TextStyle(fontSize: 24),
                             border: InputBorder.none,
@@ -66,7 +66,7 @@ class _pageState extends State<LoginPage> {
                           print("Second text field: $text");
 
                           setState(() {
-                            name = text;
+                            password = text;
                           });
                         }),
                     FlatButton(

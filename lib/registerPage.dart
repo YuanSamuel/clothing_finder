@@ -8,8 +8,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  String name;
-  String password;
+  String newName;
+  String newPassword;
 
   TextEditingController nameController;
   TextEditingController passwordController;
@@ -32,7 +32,7 @@ class _RegisterState extends State<Register> {
                   child: Column(children: <Widget>[
 
                     TextField(
-                        controller: passwordController,
+                        controller: nameController,
                         decoration: InputDecoration(
                             labelStyle: TextStyle(fontSize: 24),
                             border: InputBorder.none,
@@ -42,7 +42,7 @@ class _RegisterState extends State<Register> {
                           print("Second text field: $text");
 
                           setState(() {
-                            name = text;
+                            newName = text;
                           });
                         }),
                     //Name
@@ -59,7 +59,7 @@ class _RegisterState extends State<Register> {
                           print("Second text field: $text");
 
                           setState(() {
-                            name = text;
+                            newPassword = text;
                           });
                         }),
                     FlatButton(
