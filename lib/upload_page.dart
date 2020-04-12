@@ -8,14 +8,12 @@ import 'package:image_picker/image_picker.dart';
 import 'models/entry.dart';
 
 class UploadPage extends StatefulWidget {
-  UploadPage({Key key, this.url}) : super(key: key);
-  final String url;
+  UploadPage({Key key}) : super(key: key);
   @override
   _UploadPageState createState() => _UploadPageState();
 }
 
 class _UploadPageState extends State<UploadPage> {
-  get floatingActionButton => null;
   TextEditingController descriptionController;
   TextEditingController titleController;
   File _image;
@@ -33,17 +31,6 @@ class _UploadPageState extends State<UploadPage> {
     setState(() {
       _image = image;
     });
-
-    FirebaseStorage _storage = FirebaseStorage();
-    String filePath = 'images/${DateTime.now()}.png';
-    StorageUploadTask _uploadTask = _storage.ref().child(filePath).putFile(_image);
-    await _uploadTask.onComplete;
-    url = await _storage.ref().child(filePath).getDownloadURL();
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => UploadPage(url: url,)),
-    );
   }
 
   Future getImageDevice() async {
@@ -51,17 +38,6 @@ class _UploadPageState extends State<UploadPage> {
     setState(() {
       _image = image;
     });
-
-    FirebaseStorage _storage = FirebaseStorage();
-    String filePath = 'images/${DateTime.now()}.png';
-    StorageUploadTask _uploadTask = _storage.ref().child(filePath).putFile(_image);
-    await _uploadTask.onComplete;
-    url = await _storage.ref().child(filePath).getDownloadURL();
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => UploadPage(url: url,)),
-    );
   }
 
   @override
@@ -93,13 +69,14 @@ class _UploadPageState extends State<UploadPage> {
                     flex: 1,
                   ),
                   FlatButton(
-                      onPressed: () {
-                        addEntry();
-                        Navigator.pop(context, () {
-                          setState(() {
+                      onPressed: () async {
+                        FirebaseStorage _storage = FirebaseStorage();
+                        String filePath = 'images/${DateTime.now()}.png';
+                        StorageUploadTask _uploadTask = _storage.ref().child(filePath).putFile(_image);
+                        await _uploadTask.onComplete;
 
-                          });
-                        });
+                        url = await _storage.ref().child(filePath).getDownloadURL();
+                        addEntry();
                       },
                       child: Text('Upload', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Color.fromRGBO(23, 67, 156, 1)),)),
 
@@ -141,14 +118,13 @@ class _UploadPageState extends State<UploadPage> {
                         controller: descriptionController,
                       ),
                     ),),
-                  if(url!=null)
+                  if(_image!=null)
                   Padding(padding: EdgeInsets.symmetric(horizontal: 20),
                     child: new Container(
                       height: 300,
                       decoration: new BoxDecoration(
                           image: DecorationImage(
-                            image: new NetworkImage(
-                                widget.url),
+                            image: new FileImage(_image),
                             fit: BoxFit.cover,
                           ),
                           borderRadius: new BorderRadius.only(
@@ -156,7 +132,7 @@ class _UploadPageState extends State<UploadPage> {
                               topRight: const Radius.circular(10.0),
                               bottomLeft: const Radius.circular(10.0),
                               bottomRight: const Radius.circular(10.0))),),),
-                  if(url==null)
+                  if(_image==null)
                     Padding(padding: EdgeInsets.symmetric(horizontal: 20),
                       child: new Container(
                         height: 300,
@@ -180,6 +156,7 @@ class _UploadPageState extends State<UploadPage> {
                         height: 50,
                         width: 50,
                         child: FloatingActionButton(
+                          heroTag: "UploadButton",
                           child: Icon(Icons.add_photo_alternate),
                           onPressed: () {
                             getImageDevice();
@@ -194,6 +171,7 @@ class _UploadPageState extends State<UploadPage> {
                       height: 50,
                       width: 50,
                       child: FloatingActionButton(
+                        heroTag: "AddPhotoButton",
                         child: Icon(Icons.add_a_photo),
                         onPressed: () {
                           getImage();
@@ -216,7 +194,7 @@ class _UploadPageState extends State<UploadPage> {
     entry newEntry = entry(
         name: titleController.text,
         userId: user.uid,
-        url: widget.url,
+        url: url,
         description: descriptionController.text,
         rating: 0,
         votes: 0,
@@ -229,5 +207,8 @@ class _UploadPageState extends State<UploadPage> {
     updateList.add(uploadRef.documentID);
     print(updateList);
     Firestore.instance.collection('users').document(user.uid).updateData({'posts': updateList});
+    Navigator.pop(context, () {
+
+    });
   }
 }

@@ -19,31 +19,6 @@ class _GalleryState extends State<Gallery> {
   File _image;
   String url;
 
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    setState(() {
-      _image = image;
-    });
-
-    FirebaseStorage _storage = FirebaseStorage();
-    String filePath = 'images/${DateTime.now()}.png';
-    StorageUploadTask _uploadTask =
-        _storage.ref().child(filePath).putFile(_image);
-    await _uploadTask.onComplete;
-    url = await _storage.ref().child(filePath).getDownloadURL();
-
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => UploadPage(
-                url: url,
-              )),
-    );
-    setState(() {
-
-    });
-  }
-
   final cropKey = GlobalKey<CropState>();
 
   @override
@@ -197,10 +172,13 @@ class _GalleryState extends State<Gallery> {
           ])),
       floatingActionButton: FloatingActionButton(
         heroTag: "imageButton",
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => UploadPage()));
+          setState(() {
+
+          });
         },
         tooltip: 'Pick Image',
         child: Icon(Icons.add),

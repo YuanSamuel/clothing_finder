@@ -6,15 +6,12 @@ import 'registerPage.dart';
 import 'package:clothingfinder/Home_Page.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-
 class LoginPage extends StatefulWidget {
   @override
   _pageState createState() => _pageState();
 }
 
 class _pageState extends State<LoginPage> {
-  String name;
-  String password;
 
   TextEditingController nameController;
   TextEditingController passwordController;
@@ -76,6 +73,7 @@ class _pageState extends State<LoginPage> {
                           children: <Widget>[
                             SizedBox(height: 30),
                             new TextFormField(
+                              validator: emailValidator,
                               controller: nameController,
                               autofocus: false,
                               style: new TextStyle(
@@ -100,11 +98,11 @@ class _pageState extends State<LoginPage> {
                             ),
                             SizedBox(height: 10),
                             new TextFormField(
+                              keyboardType: TextInputType.visiblePassword,
+                              validator: passwordValidator,
                               controller: passwordController,
-                              autofocus: false,
                               style: new TextStyle(
                                   fontSize: 22.0, color: Colors.black),
-                                  obscureText: true,
                               decoration: new InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -122,9 +120,7 @@ class _pageState extends State<LoginPage> {
                                   borderRadius: new BorderRadius.circular(10),
                                 ),
                               ),
-                              onChanged: (text) {
-                                password = text;
-                              },
+                              obscureText: true,
                             ),
                             SizedBox(height: 20),
                             FlatButton(
@@ -144,34 +140,37 @@ class _pageState extends State<LoginPage> {
                                 width: 150,
                                 height: 50,
                                 decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [Color.fromRGBO(122, 124, 255, 1), Color.fromRGBO(48, 79, 254, 1)]),
-                                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                                  gradient: LinearGradient(colors: [
+                                    Color.fromRGBO(122, 124, 255, 1),
+                                    Color.fromRGBO(48, 79, 254, 1)
+                                  ]),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
                                 ),
                               ),
                               onPressed: () {
                                 FirebaseAuth.instance
                                     .signInWithEmailAndPassword(
-                                    email: nameController.text,
-                                    password: passwordController.text)
+                                        email: nameController.text,
+                                        password: passwordController.text)
                                     .then((value) => {
-                                  Firestore.instance
-                                      .collection('users')
-                                      .document(value.user.uid)
-                                      .get()
-                                      .then((value) => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            HomePage()),
-                                  ))
-                                });
+                                          Firestore.instance
+                                              .collection('users')
+                                              .document(value.user.uid)
+                                              .get()
+                                              .then((value) => Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            HomePage()),
+                                                  ))
+                                        });
                               },
                             ),
                             SizedBox(height: 9),
                             MaterialButton(
                               minWidth: 100,
                               height: 50,
-
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -179,15 +178,13 @@ class _pageState extends State<LoginPage> {
                                         builder: (context) => Register()));
                               },
                               child: Text(
-                                    "Sign Up / Register",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: "CentraleSansRegular",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-
+                                "Sign Up / Register",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "CentraleSansRegular",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ))),
