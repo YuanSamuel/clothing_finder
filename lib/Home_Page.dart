@@ -1,4 +1,5 @@
 import 'package:clothingfinder/gallery_page.dart';
+import 'package:clothingfinder/profilePage.dart';
 import 'package:clothingfinder/upload_page.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
@@ -12,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   List<Widget> _children = [
     Gallery(),
-    UploadPage(),
+    profilePage(),
 
   ];
 
