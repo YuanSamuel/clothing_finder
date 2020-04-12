@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_crop/image_crop.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'models/entry.dart';
 
 class Gallery extends StatefulWidget {
   @override
@@ -19,8 +20,8 @@ class _GalleryState extends State<Gallery> {
     setState(() {
       _image = image;
     });
-  }
 
+  }
 
   final cropKey = GlobalKey<CropState>();
 
@@ -29,105 +30,67 @@ class _GalleryState extends State<Gallery> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Container(
-            height: 250,
+          SizedBox(
+            height: 20,
           ),
           Container(
-            child: StreamBuilder(
-                stream: Firestore.instance.collection('posts').snapshots(),
-                builder: (context, snapshot){
-                  if(!snapshot.hasData){
+            child: FutureBuilder(
+                future: Firestore.instance.collection('posts').getDocuments(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
                     return Text('Loading data');
                   }
-                  return Column(
-                    children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width-50,
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment.topLeft,
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                      ),
-                                      child: Icon(Icons.person),
-                                    ),
-                                  ),
-                                  Container(
+                  else {
+                    List<DocumentSnapshot> mostPopular = snapshot.data.documents;
+                    mostPopular.sort((a, b) {
+                      return ((a.data['rating'] * 2 + a.data['votes']) - (b.data['rating'] * 2 + b.data['votes'])).floor();
+                    });
+                    List<DocumentSnapshot> mostRecent = snapshot.data.documents;
+                    mostRecent.sort((a, b) {
+                      return b.data['time'] - a.data['time'];
+                    });
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Most Popular'),
+                        Container(
+                          height: MediaQuery.of(context).size.height / 2.5,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                              physics: ScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.documents.length,
+                              itemBuilder: (context, int i) {
+                                return Row(children: <Widget>[
+                                  createPost(entry.fromJson(mostPopular[i].data)),
+                                  SizedBox(
                                     width: 10,
-                                  ),
-                                  Container(
-                                    child: Column(
-                                      children: <Widget>[
-                                        Align(
-                                          child: Text(
-                                            'Person',
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
                                   )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10,right: 10,bottom: 5),
-                              child: Container(
-                                child: Text('Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah'),
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width-70,
-                              height: 9*(MediaQuery.of(context).size.width-70)/16,
-                              child: Image.asset('assets/example.jpg'),
-                            ),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: RatingBar(
-                                    itemSize: 30,
-                                    initialRating: 3,
-                                    minRating: 1,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                                    itemBuilder: (context, _) => Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    onRatingUpdate: (rating) {
-                                      print(rating);
-                                    },
+                                ],);
+                              }),
+                        ),
+                        Text('Newest'),
+                        Container(
+                          height: MediaQuery.of(context).size.height / 2.5,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: ScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.documents.length,
+                              itemBuilder: (context, int i) {
+                                return Row(children: <Widget>[
+                                  createPost(entry.fromJson(mostRecent[i].data)),
+                                  SizedBox(
+                                    width: 10,
                                   )
-                              ),
-                            )
-                          ],
+                                ],);
+                              }),
                         ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                          )
-                        ),
-                      ),
-                    ],
-                  );
-                }
-            ),
+                      ],
+                    );
+                  }
+
+                }),
           ),
         ],
       ),
@@ -143,6 +106,99 @@ class _GalleryState extends State<Gallery> {
         tooltip: 'Pick Image',
         child: Icon(Icons.add_a_photo),
       ),
+    );
+  }
+
+  Column createPost(entry passedEntry) {
+    print("create");
+    return Column(
+      children: <Widget>[
+        Container(
+          width: MediaQuery.of(context).size.width / 2,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        child: Icon(Icons.person),
+                      ),
+                    ),
+                    Container(
+                      width: 10,
+                    ),
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          Align(
+                            child: Text(
+                              passedEntry.userName,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10,right: 10,bottom: 5),
+                child: Container(
+                  child: Text(passedEntry.name),
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height / 6,
+                child: Image.asset('assets/example.jpg', fit: BoxFit.cover,),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 10,right: 10,bottom: 5),
+                child: Container(
+                  child: Text(passedEntry.description),
+                ),
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: RatingBar(
+                      itemSize: MediaQuery.of(context).size.width / 15,
+                      initialRating: passedEntry.rating,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      ignoreGestures: true,
+                    )
+                ),
+              )
+            ],
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(),
+          ),
+        ),
+      ],
     );
   }
 }

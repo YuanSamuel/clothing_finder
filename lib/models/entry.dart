@@ -7,10 +7,12 @@ class entry {
   String userId;
   double rating;
   int votes;
+  String userName;
+  int time;
 
   DocumentReference reference;
 
-  entry({this.name, this.description, this.url, this.userId, this.rating, this.votes, this.reference});
+  entry({this.name, this.description, this.url, this.userId, this.rating, this.votes, this.reference, this.userName, this.time});
 
   factory entry.fromSnapshot(DocumentSnapshot snapshot) {
     entry newEntry = entry.fromJson(snapshot.data);
@@ -25,6 +27,8 @@ class entry {
     userId: json['userId'] as String,
     rating: json['rating'] as double,
     votes: json['votes'] as int,
+    userName: json['userName'] as String,
+    time: json['time'] as int,
   );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -34,5 +38,7 @@ class entry {
     'userId': this.userId,
     'rating': this.rating,
     'votes': this.votes,
+    'userName': this.userName,
+    'time': this.time,
   };
 }

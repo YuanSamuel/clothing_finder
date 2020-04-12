@@ -35,7 +35,10 @@ class _RegisterState extends State<Register> {
           'name': nameController.text,
           'email': emailController.text,
           'uid': value.user.uid,
+          'points': 0,
           'posts': [],
+          'ratings': 0,
+          'rated': [],
         });
         Navigator.push(
           context,
