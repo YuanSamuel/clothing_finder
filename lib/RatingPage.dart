@@ -90,7 +90,9 @@ class _RatingPageState extends State<RatingPage> {
           }
         }
         return Scaffold(
-          body: Text('Nothing to vote for!'),
+          body: Center(
+            child: Text('Nothing to vote for!'),
+          )
         );
       }
     });

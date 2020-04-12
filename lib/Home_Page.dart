@@ -1,4 +1,5 @@
 import 'package:clothingfinder/gallery_page.dart';
+import 'package:clothingfinder/leaderboard.dart';
 import 'package:clothingfinder/profilePage.dart';
 import 'package:clothingfinder/upload_page.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _children = [
     Gallery(),
     profilePage(),
-
+    LeaderBoard(),
   ];
 
   void onTabTapped(int index){
