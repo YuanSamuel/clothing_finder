@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.store),
-            title: Text("Gallery"),
+            title: Text("Marketplace"),
           ),
           BottomNavigationBarItem(
             icon: Icon(LineAwesomeIcons.signal),
