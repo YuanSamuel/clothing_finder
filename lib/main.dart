@@ -1,3 +1,4 @@
+import 'package:clothingfinder/gallery_page.dart';
 import 'package:flutter/material.dart';
 import 'registerPage.dart';
 import 'data.dart';
@@ -5,7 +6,7 @@ import 'data.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: LoginPage(),
+    home: Gallery(),
   ));
 }
 
