@@ -84,8 +84,9 @@ class _GalleryState extends State<Gallery> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              "Most Popular Posts",
+                              "        Most Popular Posts        ",
                               style: TextStyle(
+                                  backgroundColor: Colors.black26,
                                   color: Colors.black,
                                   fontFamily: "CentraleSansRegular",
                                   fontSize: 20,
@@ -112,16 +113,31 @@ class _GalleryState extends State<Gallery> {
                                   }),
                             ),
                             Text(
-                              "Latest Posts",
+                              "",
                               style: TextStyle(
+                                backgroundColor: Colors.red,
+                                  color: Colors.black,
+                                  fontFamily: "CentraleSansRegular",
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "        Latest Posts        ",
+                              style: TextStyle(
+                                  backgroundColor: Colors.black26,
                                   color: Colors.black,
                                   fontFamily: "CentraleSansRegular",
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold),
+                            ),Text(
+                              "",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "CentraleSansRegular",
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
+
                             Container(
                               height: MediaQuery.of(context).size.height / 2.7,
                               child: ListView.builder(
