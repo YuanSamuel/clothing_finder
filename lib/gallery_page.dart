@@ -18,21 +18,28 @@ class _GalleryState extends State<Gallery> {
   File _image;
   String url;
 
+  get floatingActionButton => null;
+
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
     setState(() {
       _image = image;
     });
 
     FirebaseStorage _storage = FirebaseStorage();
     String filePath = 'images/${DateTime.now()}.png';
-    StorageUploadTask _uploadTask = _storage.ref().child(filePath).putFile(_image);
+    StorageUploadTask _uploadTask =
+        _storage.ref().child(filePath).putFile(_image);
     await _uploadTask.onComplete;
     url = await _storage.ref().child(filePath).getDownloadURL();
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => UploadPage(url: url,)),
+      MaterialPageRoute(
+          builder: (context) => UploadPage(
+                url: url,
+              )),
     );
   }
 
@@ -41,84 +48,127 @@ class _GalleryState extends State<Gallery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            child: FutureBuilder(
-                future: Firestore.instance.collection('posts').getDocuments(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState != ConnectionState.done) {
-                    return Text('Loading data');
-                  }
-                  else {
-                    List<DocumentSnapshot> mostPopular = snapshot.data.documents;
-                    mostPopular.sort((a, b) {
-                      return ((a.data['rating'] * 2 + a.data['votes']) - (b.data['rating'] * 2 + b.data['votes'])).floor();
-                    });
-                    List<DocumentSnapshot> mostRecent = snapshot.data.documents;
-                    mostRecent.sort((a, b) {
-                      return b.data['time'] - a.data['time'];
-                    });
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text('Most Popular'),
-                        Container(
-                          height: MediaQuery.of(context).size.height / 2.7,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                              physics: ScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data.documents.length,
-                              itemBuilder: (context, int i) {
-                                return Row(children: <Widget>[
-                                  createPost(entry.fromJson(mostPopular[i].data)),
-                                  SizedBox(
-                                    width: 10,
-                                  )
-                                ],);
-                              }),
-                        ),
-                        Text('Newest'),
-                        Container(
-                          height: MediaQuery.of(context).size.height / 2.7,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: ScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data.documents.length,
-                              itemBuilder: (context, int i) {
-                                return Row(children: <Widget>[
-                                  createPost(entry.fromJson(mostRecent[i].data)),
-                                  SizedBox(
-                                    width: 10,
-                                  )
-                                ],);
-                              }),
-                        ),
-                        Center(
-                          child: FlatButton(
-                            color: Colors.blue,
-                            child: Text('Vote'),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => RatingPage(posts: snapshot.data.documents,)),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-
-                }),
-          ),
-        ],
-      ),
+      backgroundColor: Colors.white,
+      body: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.white, Colors.white])),
+          child: ListView(children: <Widget>[
+            Column(children: <Widget>[
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                child: FutureBuilder(
+                    future:
+                        Firestore.instance.collection('posts').getDocuments(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState != ConnectionState.done) {
+                        return Text('Loading data');
+                      } else {
+                        List<DocumentSnapshot> mostPopular =
+                            snapshot.data.documents;
+                        mostPopular.sort((a, b) {
+                          return ((a.data['rating'] * 2 + a.data['votes']) -
+                                  (b.data['rating'] * 2 + b.data['votes']))
+                              .floor();
+                        });
+                        List<DocumentSnapshot> mostRecent =
+                            snapshot.data.documents;
+                        mostRecent.sort((a, b) {
+                          return b.data['time'] - a.data['time'];
+                        });
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Most Popular Posts",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "CentraleSansRegular",
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              height: MediaQuery.of(context).size.height / 2.8,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: ScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: snapshot.data.documents.length,
+                                  itemBuilder: (context, int i) {
+                                    return Row(
+                                      children: <Widget>[
+                                        createPost(entry
+                                            .fromJson(mostPopular[i].data)),
+                                        SizedBox(
+                                          width: 7,
+                                        )
+                                      ],
+                                    );
+                                  }),
+                            ),
+                            Text(
+                              "Latest Posts",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "CentraleSansRegular",
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              height: MediaQuery.of(context).size.height / 2.7,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: ScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: snapshot.data.documents.length,
+                                  itemBuilder: (context, int i) {
+                                    return Row(
+                                      children: <Widget>[
+                                        createPost(
+                                            entry.fromJson(mostRecent[i].data)),
+                                        SizedBox(
+                                          width: 5,
+                                        )
+                                      ],
+                                    );
+                                  }),
+                            ),
+                            Center(
+                              child: RaisedButton(
+                                shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Colors.blue)),
+                                color: Colors.blue,
+                                textColor: Colors.white,
+                                padding: EdgeInsets.all(15.0),
+                                child: Text('Vote'),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => RatingPage(
+                                              posts: snapshot.data.documents,
+                                            )),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    }),
+              ),
+            ])
+          ])),
       floatingActionButton: FloatingActionButton(
         heroTag: "imageButton",
         onPressed: () {
@@ -177,19 +227,28 @@ class _GalleryState extends State<Gallery> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 10,right: 10,bottom: 5),
+                padding: EdgeInsets.only(left: 10, right: 10, bottom: 5),
                 child: Container(
-                  child: Text(passedEntry.name, overflow: TextOverflow.ellipsis,),
+                  child: Text(
+                    passedEntry.name,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height / 6,
-                child: Image.network(passedEntry.url, fit: BoxFit.cover,),
+                height: MediaQuery.of(context).size.height / 5.8,
+                child: Image.network(
+                  passedEntry.url,
+                  fit: BoxFit.cover,
+                ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 10,right: 10,bottom: 5),
+                padding: EdgeInsets.only(left: 10, right: 10, bottom: 5),
                 child: Container(
-                  child: Text(passedEntry.description, overflow: TextOverflow.ellipsis,),
+                  child: Text(
+                    passedEntry.description,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
               Container(
@@ -209,8 +268,7 @@ class _GalleryState extends State<Gallery> {
                         color: Colors.amber,
                       ),
                       ignoreGestures: true,
-                    )
-                ),
+                    )),
               ),
             ],
           ),

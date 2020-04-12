@@ -29,17 +29,17 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
         currentIndex: _currentIndex,
-        showSelectedLabels: false,
+        showSelectedLabels: true,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.purple,
+        selectedItemColor: Colors.red,
         elevation: 0,
-        iconSize: 32,
+        iconSize: 28,
 
         items: [
           BottomNavigationBarItem(
             icon: Icon(LineAwesomeIcons.pagelines),
-            title: Text("Mainpage"),
+            title: Text("Gallery"),
           ),
           BottomNavigationBarItem(
             icon: Icon(LineAwesomeIcons.user),
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(LineAwesomeIcons.signal),
-            title: Text("Signal"),
+            title: Text("Leaderboard"),
           ),
         ],
       ),
