@@ -32,6 +32,7 @@ class _RegisterState extends State<Register> {
         Firestore.instance.collection('users').document(value.user.uid).setData({
           'email': nameController.text,
           'uid': value.user.uid,
+          'posts': [],
         });
         Navigator.push(
           context,

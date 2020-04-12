@@ -1,5 +1,5 @@
 import 'package:clothingfinder/gallery_page.dart';
-import 'package:clothingfinder/screens/upload_page.dart';
+import 'package:clothingfinder/upload_page.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 

@@ -10,7 +10,7 @@ class entry {
 
   DocumentReference reference;
 
-  entry({this.name, this.description, this.url, this.userId, this.rating, this.votes});
+  entry({this.name, this.description, this.url, this.userId, this.rating, this.votes, this.reference});
 
   factory entry.fromSnapshot(DocumentSnapshot snapshot) {
     entry newEntry = entry.fromJson(snapshot.data);
