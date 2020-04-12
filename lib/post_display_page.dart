@@ -16,7 +16,9 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Post Preview'),
+      ),
       body: FutureBuilder<DocumentSnapshot>(
           future: getUserPosts(),
           builder: (context, snapshot) {
@@ -31,19 +33,43 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(widget.passedEntry.userName),
+                      Text(widget.passedEntry.userName,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "CentraleSansRegular",
+                              fontSize: 29,
+                              fontWeight: FontWeight.bold
+                          ),),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(widget.passedEntry.name),
+                          Text(widget.passedEntry.name,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: "CentraleSansRegular",
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                      ),),
                           SizedBox(width: MediaQuery.of(context).size.width / 20,),
                           Icon(Icons.star),
-                          Text('${widget.passedEntry.rating.round()}/5')
+                          Text('${widget.passedEntry.rating.round()}/5',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "CentraleSansRegular",
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),)
                         ],
                       ),
                       Image.network(widget.passedEntry.url,
                           height: MediaQuery.of(context).size.height / 1.5),
-                      Text(widget.passedEntry.description),
+                      Text(widget.passedEntry.description,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: "CentraleSansRegular",
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold
+                        ),),
                       !snapshot.data.data['rated'].contains(widget.passedEntry.reference.documentID) ?
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
