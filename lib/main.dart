@@ -1,16 +1,11 @@
-import 'package:clothingfinder/Home_Page.dart';
 import 'package:clothingfinder/screens/upload_page.dart';
 import 'package:flutter/material.dart';
+import 'image_selection.dart';
+import 'login_page.dart';
 
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: UploadPage(),
-    );
-  }
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: UploadPage(),
+  ));
 }
