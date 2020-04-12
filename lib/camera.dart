@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:clothingfinder/upload.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -48,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ? Text('No image selected.')
               : Image.file(_image),
         ),
-        floatingActionButton: Column(
+        floatingActionButton: ListView(
           children: <Widget>[
             FloatingActionButton(
               onPressed: getImage,
@@ -60,7 +61,12 @@ class _MyHomePageState extends State<MyHomePage> {
               tooltip: 'Pick Image',
               child: Icon(Icons.add_photo_alternate),
             ),
+            if(_image != null) ...[
+              
+              Uploader(file: _image,)
+            ]
           ],
+          scrollDirection: Axis.vertical,
         )
     );
   }

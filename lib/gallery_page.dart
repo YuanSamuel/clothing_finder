@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:image_crop/image_crop.dart';
+import 'post.dart';
 
 class Gallery extends StatefulWidget {
   @override
@@ -10,12 +9,10 @@ class Gallery extends StatefulWidget {
 
 class _GalleryState extends State<Gallery> {
 
-  final cropKey = GlobalKey<CropState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: <Widget>[
           Container(
             height: 250,
@@ -27,97 +24,12 @@ class _GalleryState extends State<Gallery> {
                   if(!snapshot.hasData){
                     return Text('Loading data');
                   }
-                  return Column(
-                    children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width-50,
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment.topLeft,
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                      ),
-                                      child: Icon(Icons.person),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    child: Column(
-                                      children: <Widget>[
-                                        Align(
-                                          child: Text(
-                                            'Person',
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 10,right: 10,bottom: 5),
-                              child: Container(
-                                child: Text('Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah'),
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width-70,
-                              height: 9*(MediaQuery.of(context).size.width-70)/16,
-                              child: Image.asset('assets/example.jpg'),
-                            ),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: RatingBar(
-                                    itemSize: 30,
-                                    initialRating: 3,
-                                    minRating: 1,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                                    itemBuilder: (context, _) => Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    onRatingUpdate: (rating) {
-                                      print(rating);
-                                    },
-                                  )
-                              ),
-                            )
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                          )
-                        ),
-                      ),
-                    ],
-                  );
+                  return Post("Ronald Grump","What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in the Navy Seals, and I’ve been involved in secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I’m the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you out with precision the likes of which has never been seen before on this Earth, mark my words. You think you can get away with saying shit to me over the Internet? Think again, fucker. As we speak I am contacting my network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You’re fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that’s just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little “clever” comment was about to bring down upon you, maybe you would have held your tongue. You didn’t, and now you’re paying the price, you goddamn idiot. I will shit all over you and you will drown in it. You’re fucking dead, kiddo.","assets/donald.png");
                 }
             ),
           ),
         ],
+        scrollDirection: Axis.vertical,
       ),
     );
   }

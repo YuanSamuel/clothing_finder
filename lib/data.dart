@@ -4,6 +4,7 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 
 class DatabaseService {
   String _id;
@@ -11,14 +12,6 @@ class DatabaseService {
 
   DatabaseService(id) {
     _id = id;
-  }
-
-  final FirebaseStorage _storage = FirebaseStorage(storageBucket: "gs://recycle-f9250.appspot.com");
-
-  StorageUploadTask _uploadTask;
-
-  void _startUpload() {
-
   }
 
   Future<bool> handleSignInEmail(String id, String password) async {
