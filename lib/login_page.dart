@@ -1,8 +1,11 @@
+import 'package:clothingfinder/image_selection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'registerPage.dart';
 import 'package:clothingfinder/Home_Page.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -38,8 +41,7 @@ class _pageState extends State<LoginPage> {
   String passwordValidator(String value) {
     if (value.length < 8) {
       return "Password must be longer than 8 characters";
-    }
-    else {
+    } else {
       return null;
     }
   }
@@ -47,29 +49,32 @@ class _pageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
-      body: ListView(children: <Widget>[
-        Container(
-          child: Column(
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/ecocycle.gif"),
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter)),
+        child: ListView(children: <Widget>[
+          Column(
             children: <Widget>[
-              SizedBox(height: 100),
-              Text("EcoCycle"),
+              SizedBox(height: 320),
               Form(
                 key: _loginFormKey,
                 child: Container(
-                    margin:
-                    const EdgeInsets.only(left: 30.0, top: 60.0, right: 30.0),
-                    height: 170.0,
+                    margin: const EdgeInsets.only(
+                        left: 19.0, top: 60.0, right: 19.0),
+                    height: 300.0,
                     decoration: new BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                        new BorderRadius.all(new Radius.circular(25.7))),
+                      borderRadius: BorderRadius.all(Radius.circular(
+                              30.0) //         <--- border radius here
+                          ),
+                    ),
                     child: new Directionality(
                         textDirection: TextDirection.ltr,
                         child: Column(
                           children: <Widget>[
-                            SizedBox(height: 10),
-                            Text('Login'),
+                            SizedBox(height: 30),
                             new TextFormField(
                               controller: nameController,
                               autofocus: false,
@@ -78,19 +83,22 @@ class _pageState extends State<LoginPage> {
                               decoration: new InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
-                                hintText: 'Email',
+                                hintText: 'Username',
                                 contentPadding: const EdgeInsets.only(
                                     left: 14.0, bottom: 8.0, top: 8.0),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: new BorderSide(color: Colors.white),
-                                  borderRadius: new BorderRadius.circular(25.7),
+                                  borderSide:
+                                      new BorderSide(color: Colors.white),
+                                  borderRadius: new BorderRadius.circular(10),
                                 ),
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: new BorderSide(color: Colors.white),
-                                  borderRadius: new BorderRadius.circular(25.7),
+                                  borderSide:
+                                      new BorderSide(color: Colors.white),
+                                  borderRadius: new BorderRadius.circular(10),
                                 ),
                               ),
                             ),
+                            SizedBox(height: 10),
                             new TextFormField(
                               controller: passwordController,
                               autofocus: false,
@@ -103,48 +111,77 @@ class _pageState extends State<LoginPage> {
                                 contentPadding: const EdgeInsets.only(
                                     left: 14.0, bottom: 8.0, top: 8.0),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: new BorderSide(color: Colors.white),
-                                  borderRadius: new BorderRadius.circular(25.7),
+                                  borderSide:
+                                      new BorderSide(color: Colors.white),
+                                  borderRadius: new BorderRadius.circular(10),
                                 ),
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: new BorderSide(color: Colors.white),
-                                  borderRadius: new BorderRadius.circular(25.7),
+                                  borderSide:
+                                      new BorderSide(color: Colors.white),
+                                  borderRadius: new BorderRadius.circular(10),
                                 ),
                               ),
                               onChanged: (text) {
                                 password = text;
                               },
                             ),
+                            SizedBox(height: 20),
                             FlatButton(
-                              child: Text(
-                                  'Submit'
-                              ),
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(18.0),
+                                  side: BorderSide(color: Colors.red)),
+                              color: Colors.redAccent,
+                              textColor: Colors.white,
+                              padding: EdgeInsets.all(20.0),
+                              child: Text('    Login    '),
                               onPressed: () {
-                                FirebaseAuth.instance.signInWithEmailAndPassword(email: nameController.text, password: passwordController.text).then((value) => {
-                                  Firestore.instance.collection('users').document(value.user.uid).get().then((value) => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => HomePage()),
-                                  ))
-                                });
+                                FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                        email: nameController.text,
+                                        password: passwordController.text)
+                                    .then((value) => {
+                                          Firestore.instance
+                                              .collection('users')
+                                              .document(value.user.uid)
+                                              .get()
+                                              .then((value) => Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            HomePage()),
+                                                  ))
+                                        });
                               },
+                            ),
+                            SizedBox(height: 9),
+                            MaterialButton(
+                              minWidth: 100,
+                              height: 50,
+
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Register()));
+                              },
+                              child: Text(
+                                    "Sign Up / Register",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: "CentraleSansRegular",
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+
                             ),
                           ],
                         ))),
               ),
-              RaisedButton(
-                child: Text(
-                    "Brand new? Let's register!"
-                ),
-                onPressed: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Register()));
-                },
-              )
             ],
-          ),
-        )
-      ]),
+          )
+        ]),
+      ),
     );
   }
 }

@@ -12,6 +12,7 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   List<Widget> _children = [
     Gallery(),
+    UploadPage(),
 
   ];
 
