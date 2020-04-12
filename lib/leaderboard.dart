@@ -101,6 +101,23 @@ class LeaderBoard extends StatelessWidget {
                               Column(children: [
                                 Container(
                                   height: 150,
+                                  child: Column(
+                                    children: [
+                                      Spacer(
+                                        flex: 1,
+                                      ),
+                                      Image.asset('assets/2nd.png', height: 50,),
+                                      Container(
+                                        width: 75,
+                                        child: Text(
+                                          docs[1].data['name'], style: TextStyle(
+                                            fontSize: 20,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 Container(
                                   color: Colors.grey,
@@ -112,6 +129,23 @@ class LeaderBoard extends StatelessWidget {
                                 children: [
                                   Container(
                                     height: 100,
+                                    child: Column(
+                                      children: [
+                                        Spacer(
+                                          flex: 1,
+                                        ),
+                                        Image.asset('assets/1st.png', height: 50,),
+                                        Container(
+                                          width: 75,
+                                          child: Text(
+                                            docs[0].data['name'], style: TextStyle(
+                                            fontSize: 20,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   Container(
                                     color: Colors.yellow,
@@ -124,6 +158,23 @@ class LeaderBoard extends StatelessWidget {
                                 children: [
                                   Container(
                                     height: 200,
+                                    child: Column(
+                                      children: [
+                                        Spacer(
+                                          flex: 1,
+                                        ),
+                                        Image.asset('assets/3rd.png', height: 50,),
+                                        Container(
+                                          width: 75,
+                                          child: Text(
+                                            docs[2].data['name'], style: TextStyle(
+                                            fontSize: 20,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   Container(
                                     color: Colors.brown,

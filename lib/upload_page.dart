@@ -89,12 +89,11 @@ class _UploadPageState extends State<UploadPage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           addEntry();
         },
-        label: Text('Save'),
-        icon: Icon(Icons.file_upload),
+        child: Icon(Icons.file_upload),
         backgroundColor: Colors.blue,
       ),
     );
