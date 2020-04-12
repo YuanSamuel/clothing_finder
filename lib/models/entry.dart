@@ -9,10 +9,11 @@ class entry {
   int votes;
   String userName;
   int time;
+  int points;
 
   DocumentReference reference;
 
-  entry({this.name, this.description, this.url, this.userId, this.rating, this.votes, this.reference, this.userName, this.time});
+  entry({this.name, this.description, this.url, this.userId, this.rating, this.votes, this.reference, this.userName, this.time, this.points});
 
   factory entry.fromSnapshot(DocumentSnapshot snapshot) {
     entry newEntry = entry.fromJson(snapshot.data);
@@ -29,6 +30,7 @@ class entry {
     votes: json['votes'] as int,
     userName: json['userName'] as String,
     time: json['time'] as int,
+    points: json['points'] as int,
   );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -40,5 +42,6 @@ class entry {
     'votes': this.votes,
     'userName': this.userName,
     'time': this.time,
+    'points': this.points,
   };
 }
