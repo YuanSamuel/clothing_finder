@@ -158,7 +158,7 @@ class _GalleryState extends State<Gallery> {
               Padding(
                 padding: EdgeInsets.only(left: 10,right: 10,bottom: 5),
                 child: Container(
-                  child: Text(passedEntry.name),
+                  child: Text(passedEntry.name, overflow: TextOverflow.ellipsis,),
                 ),
               ),
               Container(
@@ -168,7 +168,7 @@ class _GalleryState extends State<Gallery> {
               Padding(
                 padding: EdgeInsets.only(left: 10,right: 10,bottom: 5),
                 child: Container(
-                  child: Text(passedEntry.description),
+                  child: Text(passedEntry.description, overflow: TextOverflow.ellipsis,),
                 ),
               ),
               Container(
