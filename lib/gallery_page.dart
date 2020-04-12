@@ -1,4 +1,5 @@
 import 'package:clothingfinder/RatingPage.dart';
+import 'package:clothingfinder/post.dart';
 import 'package:clothingfinder/post_display_page.dart';
 import 'package:clothingfinder/upload_page.dart';
 import 'package:flutter/material.dart';
@@ -133,30 +134,6 @@ class _GalleryState extends State<Gallery> {
                                       ],
                                     );
                                   }),
-                            ),
-                            Center(
-                              child: RaisedButton(
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(18.0),
-                                    side: BorderSide(color: Colors.blue)),
-                                color: Colors.blue,
-                                textColor: Colors.white,
-                                padding: EdgeInsets.all(10.0),
-                                child: Text('Vote Random'),
-                                onPressed: () async {
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => RatingPage(
-                                              posts: snapshot.data.documents,
-                                            )),
-                                  );
-                                  setState(() {
-
-                                  });
-                                },
-                              ),
                             ),
                           ],
                         );

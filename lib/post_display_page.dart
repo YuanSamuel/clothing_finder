@@ -31,9 +31,7 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
             } else {
               return Container(
                 height: MediaQuery.of(context).size.height,
-                child: SizedBox.expand(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                child: ListView(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -42,7 +40,9 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                             width: 10,
                           ),
                           Padding(padding: EdgeInsets.only(top: 10),
-                          child: Text(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width /1.5,
+                            child: Text(
                             widget.passedEntry.name,
                             textAlign: TextAlign.left,
                             style: TextStyle(
@@ -50,10 +50,7 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                                 fontFamily: "CentraleSansRegular",
                                 fontSize: 35,
                                 fontWeight: FontWeight.w500
-                            ),),),
-                          Spacer(
-                            flex: 1,
-                          ),
+                            ),),),),
                           SizedBox(width: MediaQuery.of(context).size.width / 20,),
                           Icon(Icons.star),
                           Text('${widget.passedEntry.rating.round()}/5', style: TextStyle(fontSize: 20),),
@@ -124,7 +121,6 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                           )) : SizedBox.shrink(),
                     ],
                   ),
-                ),
               );
             }
           }),
