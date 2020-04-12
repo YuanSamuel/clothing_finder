@@ -16,6 +16,7 @@ class _RatingPageState extends State<RatingPage> {
 
   double stars;
 
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
@@ -42,13 +43,37 @@ class _RatingPageState extends State<RatingPage> {
                         'Rating Page',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       )),
-                  body: SizedBox.expand(
+                  body: Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/reuse.gif"),
+                            fit: BoxFit.cover,
+                            alignment: Alignment.topCenter)),
+                    child: SizedBox.expand(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
+                        SizedBox(height: 20),
+                        Text(
+                          "Rate the Recycling/Reuse Image Below!!!",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "CentraleSansRegular",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(12, 20, 12, 20),
+                          padding: EdgeInsets.fromLTRB(12, 0, 12, 15),
                           child: Container(
+                            decoration: new BoxDecoration(
+                              borderRadius: new BorderRadius.only(
+                                topLeft: const Radius.circular(40),
+                                topRight: const Radius.circular(40),
+                                bottomLeft: const Radius.circular(40),
+                                bottomRight: const Radius.circular(40),
+                              ),
+                            ),
                             child: Image.network(
                              post.url,
                               height: MediaQuery.of(context).size.height / 1.5,
@@ -91,6 +116,7 @@ class _RatingPageState extends State<RatingPage> {
                       ],
                     ),
                   ),
+                  )
                 );
               }
             }
