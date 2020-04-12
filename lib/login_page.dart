@@ -52,7 +52,7 @@ class _pageState extends State<LoginPage> {
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/ecocycle.gif"),
+                image: AssetImage("assets/reusify.gif"),
                 fit: BoxFit.cover,
                 alignment: Alignment.topCenter)),
         child: ListView(children: <Widget>[
@@ -133,7 +133,7 @@ class _pageState extends State<LoginPage> {
                               color: Colors.redAccent,
                               textColor: Colors.white,
                               padding: EdgeInsets.all(20.0),
-                              child: Text('    Login    '),
+                              child: Text('     Login     '),
                               onPressed: () {
                                 FirebaseAuth.instance
                                     .signInWithEmailAndPassword(

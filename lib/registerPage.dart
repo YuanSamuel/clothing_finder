@@ -74,11 +74,16 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green,
-      body: ListView(children: <Widget>[
+        body: Container(
+        decoration: BoxDecoration(
+        image: DecorationImage(
+        image: AssetImage("assets/reusify.gif"),
+    fit: BoxFit.cover,
+    alignment: Alignment.topCenter)),
+    child: ListView(children: <Widget>[
         Column(
           children: <Widget>[
             SizedBox(height: 100),
-            Text("RegisterPage"),
             SizedBox(height: MediaQuery.of(context).size.height / 4),
             Form(
               key: _registerFormKey,
@@ -86,7 +91,6 @@ class _RegisterState extends State<Register> {
                   margin:
                   const EdgeInsets.only(left: 30.0, top: 60.0, right: 30.0),
                   decoration: new BoxDecoration(
-                      color: Colors.white,
                       borderRadius:
                       new BorderRadius.all(new Radius.circular(25.7))),
                   child: new Directionality(
@@ -94,27 +98,29 @@ class _RegisterState extends State<Register> {
                       child: Column(
                         children: <Widget>[
                           SizedBox(height: 10),
-                          Text('Register'),
                           new TextFormField(
                             controller: nameController,
-                            style: new TextStyle(fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                            autofocus: false,
+                            style: new TextStyle(
+                                fontSize: 22.0, color: Color(0xFFbdc6cf)),
                             decoration: new InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
                               hintText: 'Name',
                               contentPadding: const EdgeInsets.only(
-                                left: 14.0, bottom: 8.0, top: 8.0,
-                              ),
+                                  left: 14.0, bottom: 8.0, top: 8.0),
                               focusedBorder: OutlineInputBorder(
-                                borderRadius: new BorderRadius.circular(25.7),
-                                borderSide: BorderSide(color: Colors.white),
+                                borderSide:
+                                new BorderSide(color: Colors.white),
+                                borderRadius: new BorderRadius.circular(10),
                               ),
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(25.7),
-                              )
+                                borderSide:
+                                new BorderSide(color: Colors.white),
+                                borderRadius: new BorderRadius.circular(10),
+                              ),
                             ),
-                          ),
+                          ), SizedBox(height: 10),
                           new TextFormField(
                             controller: emailController,
                             autofocus: false,
@@ -128,11 +134,11 @@ class _RegisterState extends State<Register> {
                                   left: 14.0, bottom: 8.0, top: 8.0),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: new BorderSide(color: Colors.white),
-                                borderRadius: new BorderRadius.circular(25.7),
+                                borderRadius: new BorderRadius.circular(10),
                               ),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: new BorderSide(color: Colors.white),
-                                borderRadius: new BorderRadius.circular(25.7),
+                                borderRadius: new BorderRadius.circular(10),
                               ),
                             ),
                             onChanged: (text) {
@@ -140,7 +146,7 @@ class _RegisterState extends State<Register> {
                             },
                             validator: emailValidator,
                           ),
-
+                          SizedBox(height: 10),
                           new TextFormField(
                             controller: passwordController,
                             autofocus: false,
@@ -154,11 +160,11 @@ class _RegisterState extends State<Register> {
                                   left: 14.0, bottom: 8.0, top: 8.0),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: new BorderSide(color: Colors.white),
-                                borderRadius: new BorderRadius.circular(25.7),
+                                borderRadius: new BorderRadius.circular(10),
                               ),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: new BorderSide(color: Colors.white),
-                                borderRadius: new BorderRadius.circular(25.7),
+                                borderRadius: new BorderRadius.circular(10),
                               ),
                             ),
                             onChanged: (text) {
@@ -168,7 +174,13 @@ class _RegisterState extends State<Register> {
                           ),
                           FlatButton(
                             child: Text(
-                                'Submit'
+                                '   Submit   ',
+                                style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "CentraleSansRegular",
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold
+                            ),
                             ),
                             onPressed: () {
                               submitInfo();
@@ -178,17 +190,21 @@ class _RegisterState extends State<Register> {
                         ],
                       ))),
             ),
-            RaisedButton(
-              child: Text(
-                  "login"
-              ),
+          FlatButton(
+          shape: new RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(18.0),
+              side: BorderSide(color: Colors.red)),
+          color: Colors.redAccent,
+          textColor: Colors.white,
+          padding: EdgeInsets.all(20.0),
+            child: Text('     Login     '),
               onPressed: () {
                 Navigator.pop(context);
               },
             )
           ],
         )
-      ]),
+      ]),)
     );
   }
 }
