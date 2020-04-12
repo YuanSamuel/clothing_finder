@@ -28,56 +28,65 @@ class _UploadPageState extends State<UploadPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Upload ur MasterPiece'),
+        centerTitle: true,
+        title: const Text('Upload your Recycling'),
       ),
-      body: Container(
-        decoration: BoxDecoration(color: Colors.white),
-        child: Expanded(
-          child: ListView(
-              children: <Widget>[
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 50,
-                ),
-                TextField(
-                  controller: titleController,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 40,
-                ),
-                new Container(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Container(
+          decoration: BoxDecoration(color: Colors.white),
+          child: Expanded(
+            child: ListView(
+                children: <Widget>[
+                  TextField(
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      hintText: "Give it a title",
+                    ),
+                    controller: titleController,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 40,
+                  ),
+                  new Container(
+                      height: 300,
+                      decoration: new BoxDecoration(
+                          image: DecorationImage(
+                            image: new NetworkImage(
+                                widget.url),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: new BorderRadius.only(
+                              topLeft: const Radius.circular(40.0),
+                              topRight: const Radius.circular(40.0),
+                              bottomLeft: const Radius.circular(40.0),
+                              bottomRight: const Radius.circular(40.0))),),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 40,
+                  ),
+                  Text(
+                    'Describe your Accomplishment',
+                    textAlign: TextAlign.center,
+                  ),
+                  new Container(
                     height: 300,
                     decoration: new BoxDecoration(
-                        image: DecorationImage(
-                          image: new NetworkImage(
-                              widget.url),
-                          fit: BoxFit.cover,
-                        ),
                         borderRadius: new BorderRadius.only(
                             topLeft: const Radius.circular(40.0),
                             topRight: const Radius.circular(40.0),
                             bottomLeft: const Radius.circular(40.0),
-                            bottomRight: const Radius.circular(40.0))),),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 40,
-                ),
-                new Container(
-                  height: 300,
-                  decoration: new BoxDecoration(
-                      borderRadius: new BorderRadius.only(
-                          topLeft: const Radius.circular(40.0),
-                          topRight: const Radius.circular(40.0),
-                          bottomLeft: const Radius.circular(40.0),
-                          bottomRight: const Radius.circular(40.0))),
-                  child: TextFormField(
-
-                    decoration: InputDecoration(
-                        hintText: "quick description", border: InputBorder.none),
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    controller: descriptionController,
+                            bottomRight: const Radius.circular(40.0))),
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                          hintText: "Quick description", border: InputBorder.none),
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      controller: descriptionController,
+                    ),
                   ),
-                ),
-              ]),
+                ]),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
