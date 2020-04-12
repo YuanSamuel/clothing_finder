@@ -23,7 +23,7 @@ class _profilePageState extends State<profilePage> {
             return Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/BackgroundTwo.PNG'),
+                      image: AssetImage('assets/Reusify.PNG'),
                       fit: BoxFit.cover)),
               child: Scaffold(
                 backgroundColor: Colors.transparent,
