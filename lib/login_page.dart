@@ -1,4 +1,3 @@
-import 'package:clothingfinder/image_selection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -50,99 +49,100 @@ class _pageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.green,
       body: ListView(children: <Widget>[
-        Column(
-          children: <Widget>[
-            SizedBox(height: 100),
-            Text("EcoCycle"),
-            SizedBox(height: 260),
-            Form(
-              key: _loginFormKey,
-              child: Container(
-                  margin:
-                  const EdgeInsets.only(left: 30.0, top: 60.0, right: 30.0),
-                  height: 170.0,
-                  decoration: new BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                      new BorderRadius.all(new Radius.circular(25.7))),
-                  child: new Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: 10),
-                          Text('Login'),
-                          new TextFormField(
-                            controller: nameController,
-                            autofocus: false,
-                            style: new TextStyle(
-                                fontSize: 22.0, color: Color(0xFFbdc6cf)),
-                            decoration: new InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: 'Username',
-                              contentPadding: const EdgeInsets.only(
-                                  left: 14.0, bottom: 8.0, top: 8.0),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: new BorderSide(color: Colors.white),
-                                borderRadius: new BorderRadius.circular(25.7),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: new BorderSide(color: Colors.white),
-                                borderRadius: new BorderRadius.circular(25.7),
-                              ),
-                            ),
-                          ),
-                          new TextFormField(
-                            controller: passwordController,
-                            autofocus: false,
-                            style: new TextStyle(
-                                fontSize: 22.0, color: Color(0xFFbdc6cf)),
-                            decoration: new InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: 'Password',
-                              contentPadding: const EdgeInsets.only(
-                                  left: 14.0, bottom: 8.0, top: 8.0),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: new BorderSide(color: Colors.white),
-                                borderRadius: new BorderRadius.circular(25.7),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: new BorderSide(color: Colors.white),
-                                borderRadius: new BorderRadius.circular(25.7),
+        Container(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 100),
+              Text("EcoCycle"),
+              Form(
+                key: _loginFormKey,
+                child: Container(
+                    margin:
+                    const EdgeInsets.only(left: 30.0, top: 60.0, right: 30.0),
+                    height: 170.0,
+                    decoration: new BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                        new BorderRadius.all(new Radius.circular(25.7))),
+                    child: new Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(height: 10),
+                            Text('Login'),
+                            new TextFormField(
+                              controller: nameController,
+                              autofocus: false,
+                              style: new TextStyle(
+                                  fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                              decoration: new InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: 'Email',
+                                contentPadding: const EdgeInsets.only(
+                                    left: 14.0, bottom: 8.0, top: 8.0),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: new BorderSide(color: Colors.white),
+                                  borderRadius: new BorderRadius.circular(25.7),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: new BorderSide(color: Colors.white),
+                                  borderRadius: new BorderRadius.circular(25.7),
+                                ),
                               ),
                             ),
-                            onChanged: (text) {
-                              password = text;
-                            },
-                          ),
-                          FlatButton(
-                            child: Text(
-                                'Submit'
+                            new TextFormField(
+                              controller: passwordController,
+                              autofocus: false,
+                              style: new TextStyle(
+                                  fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                              decoration: new InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: 'Password',
+                                contentPadding: const EdgeInsets.only(
+                                    left: 14.0, bottom: 8.0, top: 8.0),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: new BorderSide(color: Colors.white),
+                                  borderRadius: new BorderRadius.circular(25.7),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: new BorderSide(color: Colors.white),
+                                  borderRadius: new BorderRadius.circular(25.7),
+                                ),
+                              ),
+                              onChanged: (text) {
+                                password = text;
+                              },
                             ),
-                            onPressed: () {
-                              FirebaseAuth.instance.signInWithEmailAndPassword(email: nameController.text, password: passwordController.text).then((value) => {
-                                Firestore.instance.collection('users').document(value.user.uid).get().then((value) => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => HomePage()),
-                                ))
-                              });
-                            },
-                          ),
-                        ],
-                      ))),
-            ),
-            RaisedButton(
-              child: Text(
-                  "Brand new? Let's register!"
+                            FlatButton(
+                              child: Text(
+                                  'Submit'
+                              ),
+                              onPressed: () {
+                                FirebaseAuth.instance.signInWithEmailAndPassword(email: nameController.text, password: passwordController.text).then((value) => {
+                                  Firestore.instance.collection('users').document(value.user.uid).get().then((value) => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => HomePage()),
+                                  ))
+                                });
+                              },
+                            ),
+                          ],
+                        ))),
               ),
-              onPressed: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Register()));
-              },
-            )
-          ],
+              RaisedButton(
+                child: Text(
+                    "Brand new? Let's register!"
+                ),
+                onPressed: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Register()));
+                },
+              )
+            ],
+          ),
         )
       ]),
     );
