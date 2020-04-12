@@ -84,8 +84,11 @@ class _UploadPageState extends State<UploadPage> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           addEntry();
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
+          Navigator.pop(context, () {
+            setState(() {
+
+            });
+          });
         },
         label: Text('Save'),
         icon: Icon(Icons.file_upload),
@@ -96,13 +99,16 @@ class _UploadPageState extends State<UploadPage> {
 
   void addEntry() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    DocumentSnapshot getUser = await Firestore.instance.collection('users').document(user.uid).get();
     entry newEntry = entry(
-      name: titleController.text,
-      userId: user.uid,
-      url: "holder",
-      description: descriptionController.text,
-      rating: 0,
-      votes: 0,
+        name: titleController.text,
+        userId: user.uid,
+        url: "holder",
+        description: descriptionController.text,
+        rating: 0,
+        votes: 0,
+        userName: getUser.data['name'],
+        time: DateTime.now().millisecondsSinceEpoch,
     );
     DocumentReference uploadRef = await Firestore.instance.collection('posts').add(newEntry.toJson());
     DocumentSnapshot snap = await Firestore.instance.collection('users').document(user.uid).get();
