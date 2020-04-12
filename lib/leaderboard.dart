@@ -1,8 +1,10 @@
+import 'package:clothingfinder/models/entry.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class LeaderBoard extends StatelessWidget {
 
-  _space(int place, String name, int star) {
+  _space(entry passedEntry, int place) {
     return Row(
       children: [
         if(place==1)
@@ -31,7 +33,7 @@ class LeaderBoard extends StatelessWidget {
           width: 12,
         ),
         Text(
-          name,
+          passedEntry.name,
           style: TextStyle(
             fontSize: 25,
             color: Colors.black,
@@ -47,7 +49,7 @@ class LeaderBoard extends StatelessWidget {
               height: 25,
             ),
             Text(
-              'x${star}',
+              'x86',
               style: TextStyle(
                 fontSize: 25,
                 color: Colors.black,
@@ -155,14 +157,34 @@ class LeaderBoard extends StatelessWidget {
             ),
           ),
           Container(
-            child: Column(
-              children: [
-                for(int i=1;i<11;i++)
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: _space(i, 'Person${i}', 10),
-                  ),
-              ],
+            child: FutureBuilder(
+              future: Firestore.instance.collection('users').getDocuments(),
+              builder: (context, snapshot) {
+                if(snapshot.connectionState != ConnectionState.done) {
+                  return Text('Loading...');
+                }
+                else{
+
+                  List<DocumentSnapshot> mostPoints = snapshot.data.documents;
+                  mostPoints.sort((a, b) {
+                    return (a.data['points']).floor();
+                  });
+
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemCount: snapshot.data.documents.length,
+                      itemBuilder: (context, int i) {
+                        return Row(children: <Widget>[
+                          _space(entry.fromJson(mostPoints[i].data), i),
+                          SizedBox(
+                            width: 10,
+                          )
+                        ],);
+                      });
+                }
+              },
             ),
           )
         ],
