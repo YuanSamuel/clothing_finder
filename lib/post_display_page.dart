@@ -39,7 +39,7 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            width: 10,
+                            width: 5,
                           ),
                           Padding(padding: EdgeInsets.only(top: 10),
                           child: Text(
@@ -48,15 +48,15 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: "CentraleSansRegular",
-                                fontSize: 35,
+                                fontSize: 29,
                                 fontWeight: FontWeight.w500
                             ),),),
                           Spacer(
                             flex: 1,
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width / 20,),
+                          SizedBox(width: MediaQuery.of(context).size.width / 30,),
                           Icon(Icons.star),
-                          Text('${widget.passedEntry.rating.round()}/5', style: TextStyle(fontSize: 20),),
+                          Text('${widget.passedEntry.rating.round()}/5', style: TextStyle(fontSize: 29),),
                           Container(
                             width: 10,
                           ),
