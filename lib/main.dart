@@ -1,4 +1,5 @@
 import 'package:clothingfinder/gallery_page.dart';
+import 'package:clothingfinder/upload_page.dart';
 import 'package:flutter/material.dart';
 import 'image_selection.dart';
 import 'login_page.dart';
