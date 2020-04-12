@@ -67,144 +67,156 @@ class _UploadPageState extends State<UploadPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Column(
+      child: Stack(
         children: [
-          Container(
-            color: Colors.white,
-            width: MediaQuery.of(context).size.width,
-            height: 70,
-            child: Container(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: FlatButton(
-                        onPressed: () {
-                          Navigator.pop(context, () {
-                            setState(() {
+          Column(
+            children: [
+              Container(
+                color: Colors.white,
+                width: MediaQuery.of(context).size.width,
+                height: 43,
+                child: Container(
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: FlatButton(
+                            onPressed: () {
+                              Navigator.pop(context, () {
+                                setState(() {
 
-                            });
-                          });
-                        },
-                        child: Icon(Icons.clear, size: 30, color: Color.fromRGBO(23, 67, 156, 1),)),
-                  ),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  FlatButton(
-                      onPressed: () {
-                        addEntry();
-                        Navigator.pop(context, () {
-                          setState(() {
-
-                          });
-                        });
-                      },
-                      child: Text('Upload', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Color.fromRGBO(23, 67, 156, 1)),)),
-
-                ],
-              ),
-              alignment: Alignment.bottomCenter,
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(color: Colors.white),
-            child: Container(
-              height: MediaQuery.of(context).size.height-70,
-              child: ListView(
-                children: <Widget>[
-                  Padding(padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: new Container(
-                      alignment: Alignment.topLeft,
-                      height: 65,
-                      child: TextFormField(
-                        style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
-                        decoration: InputDecoration(
-                            hintText: "Title", border: InputBorder.none),
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        controller: titleController,
+                                });
+                              });
+                            },
+                            child: Icon(Icons.clear, size: 30, color: Color.fromRGBO(23, 67, 156, 1),)),
                       ),
-                    ),),
-                  Padding(padding: EdgeInsets.all(10),
-                    child: new Container(
-                      alignment: Alignment.topLeft,
-                      height: 150,
-                      child: TextFormField(
-                        style: TextStyle(fontSize: 20),
-                        textAlign: TextAlign.left,
-                        decoration: InputDecoration(
-                            hintText: "Description", border: InputBorder.none),
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        controller: descriptionController,
+                      Spacer(
+                        flex: 1,
                       ),
-                    ),),
-                  if(url!=null)
-                  Padding(padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: new Container(
-                      height: 300,
-                      decoration: new BoxDecoration(
-                          image: DecorationImage(
-                            image: new NetworkImage(
-                                widget.url),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: new BorderRadius.only(
-                              topLeft: const Radius.circular(10.0),
-                              topRight: const Radius.circular(10.0),
-                              bottomLeft: const Radius.circular(10.0),
-                              bottomRight: const Radius.circular(10.0))),),),
-                  if(url==null)
-                    Padding(padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: new Container(
-                        height: 300,
-                        child: Center(
-                          child: Text('Please Upload a Image File'),
-                        ),
-                        decoration: new BoxDecoration(
-                          border: Border.all(color: Colors.black45),
-                            borderRadius: new BorderRadius.only(
-                                topLeft: const Radius.circular(10.0),
-                                topRight: const Radius.circular(10.0),
-                                bottomLeft: const Radius.circular(10.0),
-                                bottomRight: const Radius.circular(10.0))),),),
-                  Container(
-                    height: 5,
-                  ),
-                  Padding(padding: EdgeInsets.only(right: 10, top: 10),
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      child: SizedBox(
-                        height: 50,
-                        width: 50,
-                        child: FloatingActionButton(
-                          child: Icon(Icons.add_photo_alternate),
+                      FlatButton(
                           onPressed: () {
-                            getImageDevice();
+                            addEntry();
+                            Navigator.pop(context, () {
+                              setState(() {
+
+                              });
+                            });
                           },
-                        ),
-                      ),
-                    ),),
-                  Padding(padding: EdgeInsets.only(right: 10, top: 10),
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    child: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: FloatingActionButton(
-                        child: Icon(Icons.add_a_photo),
-                        onPressed: () {
-                          getImage();
-                        },
-                      ),
-                    ),
-                  ),),
-                ],
+                          child: Text('Upload', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Color.fromRGBO(23, 67, 156, 1)),)),
+
+                    ],
+                  ),
+                  alignment: Alignment.bottomCenter,
+                ),
               ),
-            ),
+              Container(
+                decoration: BoxDecoration(color: Colors.white),
+                child: Container(
+                  height: MediaQuery.of(context).size.height-70,
+                  child: ListView(
+                    children: <Widget>[
+                      Padding(padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: new Container(
+                          alignment: Alignment.topLeft,
+                          height: 65,
+                          child: TextFormField(
+                            style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+                            decoration: InputDecoration(
+                                hintText: "Title", border: InputBorder.none),
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            controller: titleController,
+                          ),
+                        ),),
+                      Padding(padding: EdgeInsets.all(10),
+                        child: new Container(
+                          alignment: Alignment.topLeft,
+                          height: 150,
+                          child: TextFormField(
+                            style: TextStyle(fontSize: 20),
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                                hintText: "Description", border: InputBorder.none),
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            controller: descriptionController,
+                          ),
+                        ),),
+                      if(url!=null)
+                        Padding(padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: new Container(
+                            height: 300,
+                            decoration: new BoxDecoration(
+                                image: DecorationImage(
+                                  image: new NetworkImage(
+                                      widget.url),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: new BorderRadius.only(
+                                    topLeft: const Radius.circular(10.0),
+                                    topRight: const Radius.circular(10.0),
+                                    bottomLeft: const Radius.circular(10.0),
+                                    bottomRight: const Radius.circular(10.0))),),),
+                      if(url==null)
+                        Padding(padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: new Container(
+                            height: 300,
+                            child: Center(
+                              child: Text('Please Upload a Image File'),
+                            ),
+                            decoration: new BoxDecoration(
+                                border: Border.all(color: Colors.black45),
+                                borderRadius: new BorderRadius.only(
+                                    topLeft: const Radius.circular(10.0),
+                                    topRight: const Radius.circular(10.0),
+                                    bottomLeft: const Radius.circular(10.0),
+                                    bottomRight: const Radius.circular(10.0))),),),
+
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
+          Column(
+            children: [
+              Spacer(
+                flex: 25,
+              ),
+              Padding(padding: EdgeInsets.only(right: 10, top: 10),
+                child: Container(
+                  alignment: Alignment.bottomRight,
+                  child: SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: FloatingActionButton(
+                      child: Icon(Icons.add_photo_alternate),
+                      onPressed: () {
+                        getImageDevice();
+                      },
+                    ),
+                  ),
+                ),),
+              Padding(padding: EdgeInsets.only(right: 10, top: 10),
+                child: Container(
+                  alignment: Alignment.bottomRight,
+                  child: SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: FloatingActionButton(
+                      child: Icon(Icons.add_a_photo),
+                      onPressed: () {
+                        getImage();
+                      },
+                    ),
+                  ),
+                ),),
+              Spacer(
+                flex: 1,
+              ),
+            ],
+          )
         ],
       ),
     );

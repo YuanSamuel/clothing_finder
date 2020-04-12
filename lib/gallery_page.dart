@@ -57,7 +57,7 @@ class _GalleryState extends State<Gallery> {
                   end: Alignment.bottomCenter,
                   colors: [Colors.white, Colors.white])),
           child: ListView(children: <Widget>[
-            Column(children: <Widget>[
+            Stack(children: <Widget>[
               SizedBox(
                 height: MediaQuery.of(context).size.height / 50,
               ),
@@ -196,14 +196,16 @@ class _GalleryState extends State<Gallery> {
             ])
           ])),
       floatingActionButton: FloatingActionButton(
-        heroTag: "imageButton",
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => UploadPage()));
-        },
-        tooltip: 'Pick Image',
         child: Icon(Icons.add),
+        onPressed: () {
+          UploadPage upload = new UploadPage();
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return upload;
+              }
+          );
+        },
       ),
     );
   }
