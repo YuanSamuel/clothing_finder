@@ -16,7 +16,11 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(widget.passedEntry.userName,style: TextStyle(color: Colors.black),),
+      ),
       body: FutureBuilder<DocumentSnapshot>(
           future: getUserPosts(),
           builder: (context, snapshot) {
@@ -31,40 +35,68 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(widget.passedEntry.userName),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(widget.passedEntry.name),
+                          Container(
+                            width: 10,
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 10),
+                          child: Text(
+                            widget.passedEntry.name,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "CentraleSansRegular",
+                                fontSize: 35,
+                                fontWeight: FontWeight.w500
+                            ),),),
+                          Spacer(
+                            flex: 1,
+                          ),
                           SizedBox(width: MediaQuery.of(context).size.width / 20,),
                           Icon(Icons.star),
-                          Text('${widget.passedEntry.rating.round()}/5')
+                          Text('${widget.passedEntry.rating.round()}/5', style: TextStyle(fontSize: 20),),
+                          Container(
+                            width: 10,
+                          ),
                         ],
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Padding(padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                        child: Text(widget.passedEntry.description, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400), textAlign: TextAlign.left,),)
                       ),
                       Image.network(widget.passedEntry.url,
                           height: MediaQuery.of(context).size.height / 1.5),
-                      Text(widget.passedEntry.description),
                       !snapshot.data.data['rated'].contains(widget.passedEntry.reference.documentID) ?
-                          Row(
+                          Padding(padding: EdgeInsets.only(top: 10),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Vote!'),
+                              Spacer(
+                                flex: 1,
+                              ),
                               RatingBar(
                                 itemCount: 5,
                                 onRatingUpdate: (rating) {
-                                    stars = rating;
+                                  stars = rating;
                                 },
                                 maxRating: 5,
                                 minRating: 1,
                                 allowHalfRating: false,
                                 initialRating: 3,
                                 itemBuilder: (context, _) {
-                                  return Icon(Icons.star);
+                                  return Icon(Icons.star, color: Color.fromRGBO(252, 186, 3, 1),);
                                 },
                               ),
+                              Spacer(
+                                flex: 4,
+                              ),
                               FlatButton(
+                                color: Color.fromRGBO(252, 186, 3, 1),
                                 child: Text(
-                                  'Submit'
+                                    'Submit'
                                 ),
                                 onPressed: () async {
                                   await Firestore.instance.collection('posts').document(widget.passedEntry.reference.documentID).updateData({
@@ -82,13 +114,17 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                                   await otherUser.reference.updateData({
                                     'points': otherUser.data['points'] + (stars - 2),
                                   });
+                                  Navigator.pop(context);
                                   setState(() {
 
                                   });
                                 },
-                              )
+                              ),
+                              Spacer(
+                                flex: 2,
+                              ),
                             ],
-                          ) : SizedBox.shrink(),
+                          )) : SizedBox.shrink(),
                     ],
                   ),
                 ),

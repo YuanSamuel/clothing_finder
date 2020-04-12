@@ -46,6 +46,24 @@ class _UploadPageState extends State<UploadPage> {
     );
   }
 
+  Future getImageDevice() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+    });
+
+    FirebaseStorage _storage = FirebaseStorage();
+    String filePath = 'images/${DateTime.now()}.png';
+    StorageUploadTask _uploadTask = _storage.ref().child(filePath).putFile(_image);
+    await _uploadTask.onComplete;
+    url = await _storage.ref().child(filePath).getDownloadURL();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => UploadPage(url: url,)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -123,6 +141,7 @@ class _UploadPageState extends State<UploadPage> {
                         controller: descriptionController,
                       ),
                     ),),
+                  if(url!=null)
                   Padding(padding: EdgeInsets.symmetric(horizontal: 20),
                     child: new Container(
                       height: 300,
@@ -137,9 +156,37 @@ class _UploadPageState extends State<UploadPage> {
                               topRight: const Radius.circular(10.0),
                               bottomLeft: const Radius.circular(10.0),
                               bottomRight: const Radius.circular(10.0))),),),
+                  if(url==null)
+                    Padding(padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: new Container(
+                        height: 300,
+                        child: Center(
+                          child: Text('Please Upload a Image File'),
+                        ),
+                        decoration: new BoxDecoration(
+                          border: Border.all(color: Colors.black45),
+                            borderRadius: new BorderRadius.only(
+                                topLeft: const Radius.circular(10.0),
+                                topRight: const Radius.circular(10.0),
+                                bottomLeft: const Radius.circular(10.0),
+                                bottomRight: const Radius.circular(10.0))),),),
                   Container(
                     height: 5,
                   ),
+                  Padding(padding: EdgeInsets.only(right: 10, top: 10),
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: FloatingActionButton(
+                          child: Icon(Icons.add_photo_alternate),
+                          onPressed: () {
+                            getImageDevice();
+                          },
+                        ),
+                      ),
+                    ),),
                   Padding(padding: EdgeInsets.only(right: 10, top: 10),
                   child: Container(
                     alignment: Alignment.centerRight,
@@ -153,7 +200,7 @@ class _UploadPageState extends State<UploadPage> {
                         },
                       ),
                     ),
-                  ),)
+                  ),),
                 ],
               ),
             ),

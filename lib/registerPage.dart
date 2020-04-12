@@ -102,7 +102,7 @@ class _RegisterState extends State<Register> {
                             controller: nameController,
                             autofocus: false,
                             style: new TextStyle(
-                                fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                                fontSize: 22.0, color: Colors.black),
                             decoration: new InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
@@ -125,7 +125,7 @@ class _RegisterState extends State<Register> {
                             controller: emailController,
                             autofocus: false,
                             style: new TextStyle(
-                                fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                                fontSize: 22.0, color: Colors.black),
                             decoration: new InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
@@ -151,7 +151,8 @@ class _RegisterState extends State<Register> {
                             controller: passwordController,
                             autofocus: false,
                             style: new TextStyle(
-                                fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                                fontSize: 22.0, color: Colors.black),
+                                obscureText: true,
                             decoration: new InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
@@ -172,36 +173,44 @@ class _RegisterState extends State<Register> {
                             },
                             validator: passwordValidator,
                           ),
+                          Container(
+                            height: 15,
+                          ),
                           FlatButton(
-                            child: Text(
-                                '   Submit   ',
-                                style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "CentraleSansRegular",
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold
-                            ),
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Container(
+                                child: Text(
+                                  'Submit',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              width: 150,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [Color.fromRGBO(122, 124, 255, 1), Color.fromRGBO(48, 79, 254, 1)]),
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
+                              ),
                             ),
                             onPressed: () {
                               submitInfo();
                               print("submitted");
                             },
                           ),
+                          FlatButton(onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('Login',
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white),))
                         ],
                       ))),
             ),
-          FlatButton(
-          shape: new RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(18.0),
-              side: BorderSide(color: Colors.red)),
-          color: Colors.redAccent,
-          textColor: Colors.white,
-          padding: EdgeInsets.all(20.0),
-            child: Text('     Login     '),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            )
+
           ],
         )
       ]),)

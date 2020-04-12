@@ -24,7 +24,15 @@ class _RatingPageState extends State<RatingPage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return Scaffold(
-              body: CircularProgressIndicator(),
+              body: Center(
+                child: SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 5,
+                  ),
+                ),
+              ),
             );
           } else {
             widget.posts.sort((a, b) {
@@ -38,10 +46,12 @@ class _RatingPageState extends State<RatingPage> {
                 print('return');
                 return Scaffold(
                   appBar: AppBar(
+                    iconTheme: IconThemeData(color: Colors.black),
+                    backgroundColor: Colors.white,
                       centerTitle: true,
                       title: Text(
                         'Rating Page',
-                        style: TextStyle(fontStyle: FontStyle.italic),
+                        style: TextStyle(fontStyle: FontStyle.italic, color: Colors.black),
                       )),
                   body: Container(
                     decoration: BoxDecoration(
@@ -50,19 +60,29 @@ class _RatingPageState extends State<RatingPage> {
                             fit: BoxFit.cover,
                             alignment: Alignment.topCenter)),
                     child: SizedBox.expand(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    child: ListView(
                       children: <Widget>[
                         SizedBox(height: 20),
-                        Text(
-                          "Rate the Recycling/Reuse Image Below!!!",
+                        Padding(padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          post.name,
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: "CentraleSansRegular",
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
+                              fontSize: 35,
+                              fontWeight: FontWeight.w700
                           ),
-                        ),
+                        ),),
+                        Padding(padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
+                          child: Text(
+                            post.description,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "CentraleSansRegular",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400
+                            ),
+                          ),),
                         Padding(
                           padding: EdgeInsets.fromLTRB(12, 0, 12, 15),
                           child: Container(
@@ -114,6 +134,7 @@ class _RatingPageState extends State<RatingPage> {
                           ),
                         )
                       ],
+                      scrollDirection: Axis.vertical,
                     ),
                   ),
                   )

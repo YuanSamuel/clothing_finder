@@ -79,7 +79,7 @@ class _pageState extends State<LoginPage> {
                               controller: nameController,
                               autofocus: false,
                               style: new TextStyle(
-                                  fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                                  fontSize: 22.0, color: Colors.black),
                               decoration: new InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -103,7 +103,8 @@ class _pageState extends State<LoginPage> {
                               controller: passwordController,
                               autofocus: false,
                               style: new TextStyle(
-                                  fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                                  fontSize: 22.0, color: Colors.black),
+                                  obscureText: true,
                               decoration: new InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
@@ -127,30 +128,43 @@ class _pageState extends State<LoginPage> {
                             ),
                             SizedBox(height: 20),
                             FlatButton(
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Colors.red)),
-                              color: Colors.redAccent,
-                              textColor: Colors.white,
-                              padding: EdgeInsets.all(20.0),
-                              child: Text('     Login     '),
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  child: Text(
+                                    'Login',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                width: 150,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [Color.fromRGBO(122, 124, 255, 1), Color.fromRGBO(48, 79, 254, 1)]),
+                                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                                ),
+                              ),
                               onPressed: () {
                                 FirebaseAuth.instance
                                     .signInWithEmailAndPassword(
-                                        email: nameController.text,
-                                        password: passwordController.text)
+                                    email: nameController.text,
+                                    password: passwordController.text)
                                     .then((value) => {
-                                          Firestore.instance
-                                              .collection('users')
-                                              .document(value.user.uid)
-                                              .get()
-                                              .then((value) => Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            HomePage()),
-                                                  ))
-                                        });
+                                  Firestore.instance
+                                      .collection('users')
+                                      .document(value.user.uid)
+                                      .get()
+                                      .then((value) => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            HomePage()),
+                                  ))
+                                });
                               },
                             ),
                             SizedBox(height: 9),

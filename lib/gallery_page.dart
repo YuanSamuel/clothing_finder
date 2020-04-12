@@ -198,10 +198,12 @@ class _GalleryState extends State<Gallery> {
       floatingActionButton: FloatingActionButton(
         heroTag: "imageButton",
         onPressed: () {
-          getImage();
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => UploadPage()));
         },
         tooltip: 'Pick Image',
-        child: Icon(Icons.add_a_photo),
+        child: Icon(Icons.add),
       ),
     );
   }
@@ -218,11 +220,11 @@ class _GalleryState extends State<Gallery> {
       child: Column(
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width / 2,
+            height: MediaQuery.of(context).size.height / 3,
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.only(top: 5),
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -260,21 +262,14 @@ class _GalleryState extends State<Gallery> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10, bottom: 5),
+                  padding: EdgeInsets.only(left: 10, right: 10),
                   child: Container(
 
                     child: Text(
                       passedEntry.name,
                       overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
-                  ),
-                ),
-                Container(
-                  color: Colors.lightBlueAccent,
-                  child: Image.network(
-                    passedEntry.url,
-                    height: MediaQuery.of(context).size.height / 6,
-                    fit: BoxFit.cover,
                   ),
                 ),
                 Padding(
@@ -286,6 +281,19 @@ class _GalleryState extends State<Gallery> {
                     ),
                   ),
                 ),
+                Padding(padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                    height: MediaQuery.of(context).size.height/6,
+                    color: Colors.lightBlueAccent,
+                    child: AspectRatio(
+                      aspectRatio: 16/9,
+                      child: Image.network(
+                        passedEntry.url,
+                        height: MediaQuery.of(context).size.height / 6,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                ),),
                 Container(
                   alignment: Alignment.topLeft,
                   child: Padding(
