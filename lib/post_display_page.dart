@@ -49,7 +49,10 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                                 fontFamily: "CentraleSansRegular",
                                 fontSize: 35,
                                 fontWeight: FontWeight.w500
-                            ),),),
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            ),),
                           Spacer(
                             flex: 1,
                           ),

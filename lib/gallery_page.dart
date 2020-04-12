@@ -239,6 +239,7 @@ class _GalleryState extends State<Gallery> {
                     ],
                   ),
                 ),
+                if(passedEntry.name.length<=20)
                 Padding(
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: Container(
@@ -250,6 +251,18 @@ class _GalleryState extends State<Gallery> {
                     ),
                   ),
                 ),
+                if(passedEntry.name.length>20)
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Container(
+
+                      child: Text(
+                        passedEntry.name.substring(0,17)+'...',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
                 if(passedEntry.description.length<=30)
                   Padding(
                     padding: EdgeInsets.only(left: 10, right: 10),
