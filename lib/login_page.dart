@@ -98,7 +98,7 @@ class _pageState extends State<LoginPage> {
                             ),
                             SizedBox(height: 10),
                             new TextFormField(
-                              keyboardType: TextInputType.visiblePassword,
+                              keyboardType: TextInputType.emailAddress,
                               validator: passwordValidator,
                               controller: passwordController,
                               style: new TextStyle(

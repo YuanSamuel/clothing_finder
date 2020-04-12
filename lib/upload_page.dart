@@ -57,11 +57,8 @@ class _UploadPageState extends State<UploadPage> {
                     height: 30,
                     child: FlatButton(
                         onPressed: () {
-                          Navigator.pop(context, () {
-                            setState(() {
-
-                            });
-                          });
+                          print('pressed');
+                          Navigator.pop(context);
                         },
                         child: Icon(Icons.clear, size: 30, color: Color.fromRGBO(23, 67, 156, 1),)),
                   ),
@@ -146,9 +143,6 @@ class _UploadPageState extends State<UploadPage> {
                                 topRight: const Radius.circular(10.0),
                                 bottomLeft: const Radius.circular(10.0),
                                 bottomRight: const Radius.circular(10.0))),),),
-                  Container(
-                    height: 5,
-                  ),
                   Padding(padding: EdgeInsets.only(right: 10, top: 10),
                     child: Container(
                       alignment: Alignment.centerRight,

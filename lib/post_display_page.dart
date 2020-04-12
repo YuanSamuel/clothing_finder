@@ -115,9 +115,6 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                                     'points': otherUser.data['points'] + (stars - 2),
                                   });
                                   Navigator.pop(context);
-                                  setState(() {
-
-                                  });
                                 },
                               ),
                               Spacer(

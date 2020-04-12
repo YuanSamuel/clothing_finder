@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_crop/image_crop.dart';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 import 'models/entry.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class Gallery extends StatefulWidget {
   @override
@@ -16,8 +13,6 @@ class Gallery extends StatefulWidget {
 }
 
 class _GalleryState extends State<Gallery> {
-  File _image;
-  String url;
 
   final cropKey = GlobalKey<CropState>();
 
@@ -189,11 +184,14 @@ class _GalleryState extends State<Gallery> {
   GestureDetector createPost(entry passedEntry) {
     print("create");
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
+      onTap: () async {
+        await Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => PostDisplayPage(passedEntry: passedEntry,)),
         );
+        setState(() {
+
+        });
       },
       child: Column(
         children: <Widget>[
@@ -281,7 +279,7 @@ class _GalleryState extends State<Gallery> {
                         initialRating: passedEntry.rating,
                         minRating: 1,
                         direction: Axis.horizontal,
-                        allowHalfRating: true,
+                        allowHalfRating: false,
                         itemCount: 5,
                         itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                         itemBuilder: (context, _) => Icon(
