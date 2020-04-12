@@ -40,23 +40,23 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                           Container(
                             width: 10,
                           ),
-                          Padding(padding: EdgeInsets.only(top: 10),
-                          child: Text(
-                            widget.passedEntry.name,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: "CentraleSansRegular",
-                                fontSize: 35,
-                                fontWeight: FontWeight.w500
+                          Container(
+                            width: MediaQuery.of(context).size.width-80,
+                            child: Padding(padding: EdgeInsets.only(top: 10),
+                              child: Text(
+                                widget.passedEntry.name,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: "CentraleSansRegular",
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.w500
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                              ),
                             ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            ),),
-                          Spacer(
-                            flex: 1,
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width / 20,),
                           Icon(Icons.star),
                           Text('${widget.passedEntry.rating.round()}/5', style: TextStyle(fontSize: 20),),
                           Container(
