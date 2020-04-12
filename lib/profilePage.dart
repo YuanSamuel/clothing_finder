@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'login_page.dart';
 
 class profilePage extends StatefulWidget {
   @override
@@ -74,6 +75,23 @@ class _profilePageState extends State<profilePage> {
                           style: TextStyle(fontSize: 24, color: Colors.white),
                         ),
                         SizedBox(height: 50),
+                        FlatButton(
+                          child: Text('Sign Out', style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24
+                          ),),
+                          color: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                              color: Colors.white
+                            ),
+                          ),
+                          onPressed: () async {
+                            await FirebaseAuth.instance.signOut();
+                            Navigator.of(context).pushReplacementNamed('/');
+                          },
+                        )
                       ],
                     )
                   ],

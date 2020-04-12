@@ -14,8 +14,8 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   List<Widget> _children = [
     Gallery(),
-    profilePage(),
     LeaderBoard(),
+    profilePage(),
   ];
 
   void onTabTapped(int index){
@@ -42,12 +42,12 @@ class _HomePageState extends State<HomePage> {
             title: Text("Gallery"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(LineAwesomeIcons.user),
-            title: Text("Profile"),
-          ),
-          BottomNavigationBarItem(
             icon: Icon(LineAwesomeIcons.signal),
             title: Text("Leaderboard"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(LineAwesomeIcons.user),
+            title: Text("Profile"),
           ),
         ],
       ),
