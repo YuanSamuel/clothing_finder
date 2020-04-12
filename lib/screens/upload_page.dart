@@ -18,6 +18,7 @@ Widget build(BuildContext context) {
         title: const Text('Upload ur MasterPiece'),
       ),
       body: Container(
+        height: 1000000,
       decoration: BoxDecoration(
       color: Colors.white
   ),
@@ -66,11 +67,23 @@ Widget build(BuildContext context) {
         ),
 
       ),
+                new Container(
+                  height: 300,
+                  decoration: new BoxDecoration(
+
+
+                      borderRadius: new BorderRadius.only(
+                        topLeft:  const  Radius.circular(40.0),
+                        topRight: const  Radius.circular(40.0),
+                      )
+                  )
+
+                )
 
     ]
 
+         ),
 
-                ),
 
 
       ),
@@ -78,13 +91,12 @@ Widget build(BuildContext context) {
       onPressed: () {                    // Add your onPressed code here!
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GalleryPage()));
+      MaterialPageRoute(builder: (context) => HomePage()));
         },
         label: Text('Save'),
         icon: Icon(Icons.file_upload),
         backgroundColor: Colors.blue,
       ),
-
 
         );
   }
