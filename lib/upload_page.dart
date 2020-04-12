@@ -6,6 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'models/entry.dart';
 
 class UploadPage extends StatefulWidget {
+  UploadPage({Key key, this.url}) : super(key: key);
+  final String url;
   @override
   _UploadPageState createState() => _UploadPageState();
 }
@@ -47,17 +49,14 @@ class _UploadPageState extends State<UploadPage> {
                     decoration: new BoxDecoration(
                         image: DecorationImage(
                           image: new NetworkImage(
-                              "https://images.squarespace-cdn.com/content/v1/5862e6e9bebafb318d9b5ed6/1483646784305-CF8XQZH8MPCUBBW6WP6L/ke17ZwdGBToddI8pDm48kNvT88LknE-K9M4pGNO0Iqd7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1USOFn4xF8vTWDNAUBm5ducQhX-V3oVjSmr829Rco4W2Uo49ZdOtO_QXox0_W7i2zEA/explore.jpg?format=2500w"),
+                              widget.url),
                           fit: BoxFit.cover,
                         ),
                         borderRadius: new BorderRadius.only(
                             topLeft: const Radius.circular(40.0),
                             topRight: const Radius.circular(40.0),
                             bottomLeft: const Radius.circular(40.0),
-                            bottomRight: const Radius.circular(40.0))),
-                    child: new Center(
-                      child: new Text("Upload Image"),
-                    )),
+                            bottomRight: const Radius.circular(40.0))),),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 40,
                 ),
@@ -103,7 +102,7 @@ class _UploadPageState extends State<UploadPage> {
     entry newEntry = entry(
         name: titleController.text,
         userId: user.uid,
-        url: "holder",
+        url: widget.url,
         description: descriptionController.text,
         rating: 0,
         votes: 0,

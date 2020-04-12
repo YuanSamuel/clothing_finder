@@ -45,3 +45,4 @@ class _ImageSelectionPageState extends State<ImageSelectionPage> {
       ),
     );
   }
+}

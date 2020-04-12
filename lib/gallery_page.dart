@@ -1,3 +1,4 @@
+import 'package:clothingfinder/RatingPage.dart';
 import 'package:clothingfinder/upload_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,6 +7,7 @@ import 'package:image_crop/image_crop.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'models/entry.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Gallery extends StatefulWidget {
   @override
@@ -14,6 +16,7 @@ class Gallery extends StatefulWidget {
 
 class _GalleryState extends State<Gallery> {
   File _image;
+  String url;
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -21,6 +24,16 @@ class _GalleryState extends State<Gallery> {
       _image = image;
     });
 
+    FirebaseStorage _storage = FirebaseStorage();
+    String filePath = 'images/${DateTime.now()}.png';
+    StorageUploadTask _uploadTask = _storage.ref().child(filePath).putFile(_image);
+    await _uploadTask.onComplete;
+    url = await _storage.ref().child(filePath).getDownloadURL();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => UploadPage(url: url,)),
+    );
   }
 
   final cropKey = GlobalKey<CropState>();
@@ -54,7 +67,7 @@ class _GalleryState extends State<Gallery> {
                       children: [
                         Text('Most Popular'),
                         Container(
-                          height: MediaQuery.of(context).size.height / 2.5,
+                          height: MediaQuery.of(context).size.height / 2.7,
                           child: ListView.builder(
                             shrinkWrap: true,
                               physics: ScrollPhysics(),
@@ -71,7 +84,7 @@ class _GalleryState extends State<Gallery> {
                         ),
                         Text('Newest'),
                         Container(
-                          height: MediaQuery.of(context).size.height / 2.5,
+                          height: MediaQuery.of(context).size.height / 2.7,
                           child: ListView.builder(
                               shrinkWrap: true,
                               physics: ScrollPhysics(),
@@ -86,6 +99,18 @@ class _GalleryState extends State<Gallery> {
                                 ],);
                               }),
                         ),
+                        Center(
+                          child: FlatButton(
+                            color: Colors.blue,
+                            child: Text('Vote'),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => RatingPage(posts: snapshot.data.documents,)),
+                              );
+                            },
+                          ),
+                        ),
                       ],
                     );
                   }
@@ -98,10 +123,6 @@ class _GalleryState extends State<Gallery> {
         heroTag: "imageButton",
         onPressed: () {
           getImage();
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => UploadPage()),
-          );
         },
         tooltip: 'Pick Image',
         child: Icon(Icons.add_a_photo),
@@ -163,7 +184,7 @@ class _GalleryState extends State<Gallery> {
               ),
               Container(
                 height: MediaQuery.of(context).size.height / 6,
-                child: Image.asset('assets/example.jpg', fit: BoxFit.cover,),
+                child: Image.network(passedEntry.url, fit: BoxFit.cover,),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 10,right: 10,bottom: 5),
@@ -190,7 +211,7 @@ class _GalleryState extends State<Gallery> {
                       ignoreGestures: true,
                     )
                 ),
-              )
+              ),
             ],
           ),
           decoration: BoxDecoration(
