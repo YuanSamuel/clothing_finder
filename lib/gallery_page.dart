@@ -94,6 +94,7 @@ class _GalleryState extends State<Gallery> {
                             ),
                             SizedBox(height: 10),
                             Container(
+                              color: Colors.lightBlueAccent[5],
                               height: MediaQuery.of(context).size.height / 2.8,
                               child: ListView.builder(
                                   shrinkWrap: true,
@@ -139,7 +140,8 @@ class _GalleryState extends State<Gallery> {
                             ),
 
                             Container(
-                              height: MediaQuery.of(context).size.height / 2.7,
+                              color: Colors.lightBlueAccent[5],
+                              height: MediaQuery.of(context).size.height / 2.9,
                               child: ListView.builder(
                                   shrinkWrap: true,
                                   physics: ScrollPhysics(),
@@ -224,6 +226,7 @@ class _GalleryState extends State<Gallery> {
                       width: 10,
                     ),
                     Container(
+
                       child: Column(
                         children: <Widget>[
                           Align(
@@ -245,6 +248,7 @@ class _GalleryState extends State<Gallery> {
               Padding(
                 padding: EdgeInsets.only(left: 10, right: 10, bottom: 5),
                 child: Container(
+
                   child: Text(
                     passedEntry.name,
                     overflow: TextOverflow.ellipsis,
@@ -252,6 +256,7 @@ class _GalleryState extends State<Gallery> {
                 ),
               ),
               Container(
+                color: Colors.lightBlueAccent,
                 height: MediaQuery.of(context).size.height / 5.8,
                 child: Image.network(
                   passedEntry.url,
