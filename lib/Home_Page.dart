@@ -4,6 +4,7 @@ import 'package:clothingfinder/profilePage.dart';
 import 'package:clothingfinder/upload_page.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:clothingfinder/marketplace_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   List<Widget> _children = [
     Gallery(),
+    MarketplacePage(),
     LeaderBoard(),
     profilePage(),
   ];
@@ -39,6 +41,10 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(LineAwesomeIcons.pagelines),
+            title: Text("Gallery"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.store),
             title: Text("Gallery"),
           ),
           BottomNavigationBarItem(
