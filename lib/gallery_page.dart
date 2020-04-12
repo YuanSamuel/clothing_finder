@@ -172,8 +172,8 @@ class _GalleryState extends State<Gallery> {
                                     side: BorderSide(color: Colors.blue)),
                                 color: Colors.blue,
                                 textColor: Colors.white,
-                                padding: EdgeInsets.all(15.0),
-                                child: Text('Vote'),
+                                padding: EdgeInsets.all(10.0),
+                                child: Text('Vote Random'),
                                 onPressed: () async {
                                   await Navigator.push(
                                     context,
