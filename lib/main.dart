@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'registerPage.dart';
+import 'RatingPage.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: LoginPage(),
+    home: RatingPage(),
   ));
 }
 
