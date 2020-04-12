@@ -225,15 +225,26 @@ class _GalleryState extends State<Gallery> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  child: Container(
-                    child: Text(
-                      passedEntry.description,
-                      overflow: TextOverflow.ellipsis,
+                if(passedEntry.description.length<=30)
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Container(
+                      child: Text(
+                        passedEntry.description,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
-                ),
+                if(passedEntry.description.length>30)
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Container(
+                      child: Text(
+                        passedEntry.description.substring(0,27)+'...',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
                     height: MediaQuery.of(context).size.height/6,

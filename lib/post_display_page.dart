@@ -120,6 +120,7 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                             ],
                           )) : SizedBox.shrink(),
                     ],
+                    scrollDirection: Axis.vertical,
                   ),
               );
             }
