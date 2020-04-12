@@ -1,3 +1,4 @@
+import 'package:clothingfinder/gallery_page.dart';
 import 'package:clothingfinder/image_selection.dart';
 import 'package:clothingfinder/upload_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,13 +7,6 @@ import 'package:flutter/material.dart';
 import 'camera.dart';
 import 'registerPage.dart';
 import 'package:clothingfinder/Home_Page.dart';
-
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: UploadPage(),
-  ));
-}
 
 class LoginPage extends StatefulWidget {
   @override
