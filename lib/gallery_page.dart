@@ -30,10 +30,13 @@ class _GalleryState extends State<Gallery> {
     await _uploadTask.onComplete;
     url = await _storage.ref().child(filePath).getDownloadURL();
 
-    Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => UploadPage(url: url,)),
     );
+    setState(() {
+
+    });
   }
 
   final cropKey = GlobalKey<CropState>();
@@ -56,7 +59,7 @@ class _GalleryState extends State<Gallery> {
                   else {
                     List<DocumentSnapshot> mostPopular = snapshot.data.documents;
                     mostPopular.sort((a, b) {
-                      return ((a.data['rating'] * 2 + a.data['votes']) - (b.data['rating'] * 2 + b.data['votes'])).floor();
+                      return ((b.data['rating'] * 2 + b.data['votes']) - (a.data['rating'] * 2 + a.data['votes'])).floor();
                     });
                     List<DocumentSnapshot> mostRecent = snapshot.data.documents;
                     mostRecent.sort((a, b) {
@@ -103,11 +106,14 @@ class _GalleryState extends State<Gallery> {
                           child: FlatButton(
                             color: Colors.blue,
                             child: Text('Vote'),
-                            onPressed: () {
-                              Navigator.push(
+                            onPressed: () async {
+                              await Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => RatingPage(posts: snapshot.data.documents,)),
                               );
+                              setState(() {
+
+                              });
                             },
                           ),
                         ),

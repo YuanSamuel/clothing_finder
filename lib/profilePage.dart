@@ -60,9 +60,9 @@ class _profilePageState extends State<profilePage> {
                           style: TextStyle(fontSize: 24, color: Colors.white),
                         ),
                         SizedBox(height: 50),
-                        //Total Stars
+                        //Total Points
                         Text(
-                          'Stars Collected',
+                          'Total Points',
                           style: TextStyle(
                               fontSize: 32,
                               fontStyle: FontStyle.italic,

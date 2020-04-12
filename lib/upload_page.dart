@@ -83,11 +83,6 @@ class _UploadPageState extends State<UploadPage> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           addEntry();
-          Navigator.pop(context, () {
-            setState(() {
-
-            });
-          });
         },
         label: Text('Save'),
         icon: Icon(Icons.file_upload),
@@ -115,5 +110,6 @@ class _UploadPageState extends State<UploadPage> {
     updateList.add(uploadRef.documentID);
     print(updateList);
     Firestore.instance.collection('users').document(user.uid).updateData({'posts': updateList});
+    Navigator.pop(context);
   }
 }

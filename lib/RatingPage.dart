@@ -84,7 +84,6 @@ class _RatingPageState extends State<RatingPage> {
                             ),
                             color: Colors.amber,
                             onPressed: () {
-                              Navigator.pop(context);
                               updatePoints(snapshot.data, post);
                             },
                           ),
@@ -119,6 +118,7 @@ class _RatingPageState extends State<RatingPage> {
       'rating': (post.rating * post.votes + stars) / (post.votes + 1),
       'votes': post.votes + 1,
     });
+    Navigator.pop(context);
   }
 
   Future<DocumentSnapshot> getUserPosts() async {
