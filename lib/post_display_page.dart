@@ -32,8 +32,7 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
               return Container(
                 height: MediaQuery.of(context).size.height,
                 child: SizedBox.expand(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  child: ListView(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -126,6 +125,7 @@ class _PostDisplayPageState extends State<PostDisplayPage> {
                             ],
                           )) : SizedBox.shrink(),
                     ],
+                    scrollDirection: Axis.vertical,
                   ),
                 ),
               );

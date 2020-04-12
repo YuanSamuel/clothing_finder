@@ -19,31 +19,6 @@ class _GalleryState extends State<Gallery> {
   File _image;
   String url;
 
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
-    setState(() {
-      _image = image;
-    });
-
-    FirebaseStorage _storage = FirebaseStorage();
-    String filePath = 'images/${DateTime.now()}.png';
-    StorageUploadTask _uploadTask =
-        _storage.ref().child(filePath).putFile(_image);
-    await _uploadTask.onComplete;
-    url = await _storage.ref().child(filePath).getDownloadURL();
-
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => UploadPage(
-                url: url,
-              )),
-    );
-    setState(() {
-
-    });
-  }
-
   final cropKey = GlobalKey<CropState>();
 
   @override
@@ -57,7 +32,7 @@ class _GalleryState extends State<Gallery> {
                   end: Alignment.bottomCenter,
                   colors: [Colors.white, Colors.white])),
           child: ListView(children: <Widget>[
-            Stack(children: <Widget>[
+            Column(children: <Widget>[
               SizedBox(
                 height: MediaQuery.of(context).size.height / 50,
               ),
@@ -196,16 +171,17 @@ class _GalleryState extends State<Gallery> {
             ])
           ])),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          UploadPage upload = new UploadPage();
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return upload;
-              }
-          );
+        heroTag: "imageButton",
+        onPressed: () async {
+          await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => UploadPage()));
+          setState(() {
+
+          });
         },
+        tooltip: 'Pick Image',
+        child: Icon(Icons.add),
       ),
     );
   }
@@ -274,15 +250,26 @@ class _GalleryState extends State<Gallery> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  child: Container(
-                    child: Text(
-                      passedEntry.description,
-                      overflow: TextOverflow.ellipsis,
+                if(passedEntry.description.length<=30)
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Container(
+                      child: Text(
+                        passedEntry.description,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
-                ),
+                if(passedEntry.description.length>30)
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Container(
+                      child: Text(
+                        passedEntry.description.substring(0,27)+'...',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
                 Padding(padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
                     height: MediaQuery.of(context).size.height/6,
