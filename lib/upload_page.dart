@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'models/entry.dart';
-import 'package:clothingfinder/gallery_page.dart';
 
 class UploadPage extends StatefulWidget {
   UploadPage({Key key, this.url}) : super(key: key);
